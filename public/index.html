@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
+  <meta name="sharks-ui-version" content="blue-premium-2026-09-27">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -676,6 +677,226 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;background-ima
 #codeEditModal{position:fixed;inset:0;background:rgba(0,0,0,.68);backdrop-filter:blur(10px);z-index:100;display:flex;align-items:center;justify-content:center;padding:20px}.code-edit-card{width:min(560px,100%);background:linear-gradient(145deg,#101a36,#080d1e);border:1px solid rgba(124,151,255,.28);border-radius:24px;padding:25px;box-shadow:0 30px 100px rgba(0,0,0,.5)}.code-edit-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.code-edit-grid .full{grid-column:1/-1}.modal-actions{display:flex;gap:10px;justify-content:flex-start;margin-top:18px}
 .sharks-hero{display:grid;grid-template-columns:1.4fr .6fr;gap:16px;margin-bottom:18px}.sharks-hero-main{padding:28px;border-radius:24px;background:linear-gradient(135deg,rgba(124,92,255,.20),rgba(34,211,238,.08));border:1px solid rgba(124,151,255,.20)}.sharks-hero-main h1{font-size:clamp(30px,4vw,48px);margin:0 0 8px}.sharks-hero-main p{color:#aebbd1;font-size:16px;line-height:1.8;margin:0}.sharks-live{padding:22px;border-radius:24px;background:rgba(8,15,32,.72);border:1px solid rgba(124,151,255,.20)}.live-dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:#28e7a5;box-shadow:0 0 16px #28e7a5;margin-left:7px}
 @media(max-width:800px){.coin-search{grid-template-columns:1fr}.recommendations{grid-template-columns:1fr}.price-grid{grid-template-columns:repeat(2,1fr)}.sharks-hero{grid-template-columns:1fr}.topbar{position:relative;top:0}}
+
+
+    /* SHARKS UI — BLUE / PREMIUM / COMPACT */
+    :root{
+      --shark-bg:#050b16;
+      --shark-panel:rgba(9,19,36,.92);
+      --shark-panel-2:rgba(7,15,29,.96);
+      --shark-line:rgba(45,140,255,.22);
+      --shark-blue:#2388ff;
+      --shark-blue-2:#0b5fd7;
+      --shark-blue-soft:#5bb4ff;
+      --shark-green:#20d6a0;
+      --shark-red:#ff5f78;
+      --shark-text:#f4f8ff;
+      --shark-muted:#91a4bf;
+    }
+
+    body{
+      background:
+        radial-gradient(900px 520px at 8% -12%,rgba(35,136,255,.18),transparent 62%),
+        radial-gradient(700px 480px at 96% 0%,rgba(20,91,180,.14),transparent 60%),
+        linear-gradient(145deg,#030711,#061224 55%,#030711)!important;
+      color:var(--shark-text)!important;
+    }
+
+    .container{width:min(1480px,94%);padding:24px 0 64px}
+
+    .topbar{
+      padding:16px 20px!important;
+      border:1px solid var(--shark-line)!important;
+      background:rgba(5,14,28,.88)!important;
+      backdrop-filter:blur(18px);
+      border-radius:18px!important;
+      box-shadow:0 14px 45px rgba(0,0,0,.28)!important;
+    }
+
+    .brand{letter-spacing:.3px}
+    .brand small,.muted{color:var(--shark-muted)!important}
+
+    .panel{
+      background:linear-gradient(145deg,rgba(10,22,41,.94),rgba(5,13,26,.94))!important;
+      border:1px solid var(--shark-line)!important;
+      border-radius:18px!important;
+      padding:21px!important;
+      margin-bottom:16px!important;
+      box-shadow:0 16px 45px rgba(0,0,0,.24)!important;
+      backdrop-filter:blur(14px);
+    }
+
+    .panel-title{font-size:21px!important}
+
+    .btn{
+      border:1px solid rgba(45,140,255,.25)!important;
+      background:rgba(11,29,53,.92)!important;
+      border-radius:11px!important;
+      min-height:44px;
+      padding:10px 17px;
+    }
+    .btn:hover{
+      transform:translateY(-1px);
+      border-color:rgba(91,180,255,.55)!important;
+      box-shadow:0 8px 24px rgba(0,86,190,.20);
+    }
+    .btn-primary{
+      background:linear-gradient(135deg,#1678ed,#0b56c7)!important;
+      border-color:rgba(91,180,255,.25)!important;
+      box-shadow:0 9px 26px rgba(13,93,205,.24)!important;
+    }
+    .btn-success{background:linear-gradient(135deg,#087e68,#16b991)!important}
+    .btn-warning{background:linear-gradient(135deg,#95630b,#c58b20)!important}
+    .btn-danger{background:linear-gradient(135deg,#942b45,#d84b69)!important}
+
+    .coin-search{display:grid!important;grid-template-columns:1fr auto auto;gap:10px;align-items:center}
+    .coin-search .input{font-size:17px;min-height:53px}
+    .coin-search .btn{min-height:53px}
+
+    .filters{gap:8px!important}
+    .filter{
+      border-radius:9px!important;
+      padding:9px 15px!important;
+      background:rgba(8,24,45,.85)!important;
+      border:1px solid rgba(45,140,255,.18)!important;
+    }
+    .filter.active{
+      background:linear-gradient(135deg,#1678ed,#0b56c7)!important;
+      border-color:transparent!important;
+    }
+
+    /* Compact recommendation rows — no giant cards */
+    .recommendations{
+      display:flex!important;
+      flex-direction:column;
+      gap:7px!important;
+    }
+    .compact-recommendation{
+      padding:0!important;
+      margin:0!important;
+      border-radius:11px!important;
+      background:linear-gradient(90deg,rgba(8,20,38,.98),rgba(5,14,27,.98))!important;
+      border:1px solid rgba(45,140,255,.16)!important;
+      overflow:hidden;
+      box-shadow:0 5px 18px rgba(0,0,0,.18)!important;
+      transform:none!important;
+    }
+    .compact-recommendation:hover{
+      border-color:rgba(45,140,255,.42)!important;
+      box-shadow:0 8px 25px rgba(0,72,170,.16)!important;
+    }
+    .compact-recommendation:before{
+      width:3px!important;
+      background:linear-gradient(#2388ff,#5bb4ff)!important;
+      opacity:1!important;
+    }
+    .compact-main{
+      display:grid;
+      grid-template-columns:minmax(190px,1.65fr) 82px 70px 130px 130px minmax(235px,1.8fr) 95px 115px;
+      align-items:center;
+      gap:9px;
+      padding:10px 12px;
+    }
+    .compact-symbol-wrap{display:flex;align-items:center;gap:7px;min-width:0}
+    .compact-symbol-wrap .symbol{font-size:17px;white-space:nowrap}
+    .market-mini,.tf-mini{
+      font-size:9px;font-weight:900;border-radius:6px;padding:4px 7px;white-space:nowrap
+    }
+    .market-mini{
+      color:#9fd2ff;
+      background:rgba(35,136,255,.10);
+      border:1px solid rgba(35,136,255,.24)
+    }
+    .tf-mini{
+      color:#91a4bf;
+      background:rgba(255,255,255,.025);
+      border:1px solid rgba(145,164,191,.12)
+    }
+    .compact-side{font-weight:950;font-size:12px;text-align:center}
+    .compact-score{
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      padding:5px 8px;border-radius:8px;
+      background:rgba(35,136,255,.07);
+      border:1px solid rgba(35,136,255,.17)
+    }
+    .compact-score strong{font-size:17px;line-height:1}
+    .compact-score span{font-size:8px;color:#71849e;margin-top:3px}
+    .compact-metric{min-width:0}
+    .compact-metric span,.compact-tps span{
+      display:block;font-size:8px;color:#71849e;margin-bottom:2px
+    }
+    .compact-metric strong{font-size:11px;white-space:nowrap}
+    .compact-tps{
+      display:grid;grid-template-columns:auto 1fr auto 1fr auto 1fr;
+      align-items:center;gap:3px 6px;min-width:0
+    }
+    .compact-tps strong{font-size:10px;white-space:nowrap}
+    .compact-change,.compact-volume{font-size:10px;font-weight:800;white-space:nowrap}
+    .compact-change.up{color:var(--shark-green)}
+    .compact-change.down{color:var(--shark-red)}
+    .compact-subline{
+      display:flex;align-items:center;gap:11px;flex-wrap:wrap;
+      padding:6px 12px;border-top:1px solid rgba(45,140,255,.08);
+      background:rgba(255,255,255,.012);font-size:9px;color:#71849e
+    }
+    .reason-preview{color:#91a4bf;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:520px}
+
+    /* Clear service identity */
+    .service-badge{
+      display:inline-flex;align-items:center;padding:5px 9px;border-radius:7px;
+      font-size:10px;font-weight:950;letter-spacing:.5px;
+      color:#bfe1ff;background:rgba(35,136,255,.10);
+      border:1px solid rgba(35,136,255,.28)
+    }
+    .crypto-only-note{
+      display:flex;align-items:center;min-height:40px;padding:9px 12px;border-radius:9px;
+      color:#bfe1ff;background:rgba(35,136,255,.055);
+      border:1px solid rgba(35,136,255,.18);font-weight:800
+    }
+    .access-type-pill{
+      display:inline-flex;align-items:center;padding:4px 8px;border-radius:6px;
+      font-size:9px;font-weight:950;letter-spacing:.4px;
+      color:#bfe1ff;background:rgba(35,136,255,.08);
+      border:1px solid rgba(35,136,255,.20)
+    }
+
+    .sharks-hero{
+      display:grid;grid-template-columns:1.55fr .45fr;gap:12px;margin-bottom:14px
+    }
+    .sharks-hero-main{
+      padding:22px!important;border-radius:18px!important;
+      background:linear-gradient(120deg,rgba(20,91,180,.20),rgba(8,25,48,.45))!important;
+      border:1px solid rgba(45,140,255,.20)!important
+    }
+    .sharks-hero-main h1{font-size:clamp(27px,3.5vw,42px);margin:0 0 6px}
+    .sharks-hero-main p{color:#9fb1c9;font-size:14px;line-height:1.7;margin:0}
+    .sharks-live{
+      padding:19px!important;border-radius:18px!important;
+      background:rgba(5,15,29,.82)!important;
+      border:1px solid rgba(45,140,255,.18)!important
+    }
+    .live-dot{
+      display:inline-block;width:8px;height:8px;border-radius:50%;
+      background:#20d6a0;box-shadow:0 0 12px #20d6a0;margin-left:6px
+    }
+
+    @media(max-width:1200px){
+      .compact-main{
+        grid-template-columns:minmax(170px,1.5fr) 70px 62px 105px 105px minmax(190px,1.4fr) 85px
+      }
+      .compact-volume{display:none}
+    }
+    @media(max-width:850px){
+      .compact-main{grid-template-columns:1fr auto auto;gap:7px}
+      .compact-symbol-wrap{grid-column:1}
+      .compact-side{grid-column:2}
+      .compact-score{grid-column:3}
+      .compact-metric,.compact-tps,.compact-change,.compact-volume{grid-column:auto}
+      .compact-tps{grid-template-columns:auto 1fr auto 1fr auto 1fr}
+      .compact-subline{gap:8px}
+      .tf-mini{display:none}
+      .sharks-hero{grid-template-columns:1fr}
+    }
 </style>
 </head>
 
@@ -1087,6 +1308,11 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;background-ima
       <div class="settings-grid">
 
         <div class="field">
+          <label>نوع الاشتراك</label>
+          <div class="crypto-only-note">CRYPTO — عملات رقمية (OKX) فقط</div>
+        </div>
+
+        <div class="field">
 
           <label>
             اسم العميل
@@ -1193,6 +1419,7 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;background-ima
 
             <tr>
               <th>الكود</th>
+              <th>النوع</th>
               <th>العميل</th>
               <th>المدة</th>
               <th>الحالة</th>
@@ -1438,12 +1665,13 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;background-ima
 
       <div>
 
-        <div class="brand">
-          Sharks Recommendation
+        <div class="brand-row">
+          <div class="brand">Sharks Recommendation</div>
+          <span class="service-badge">CRYPTO • OKX</span>
         </div>
 
         <small class="muted">
-          تحليل فني متعدد الفريمات — Spot + Futures — توصيات فقط
+          منصة توصيات العملات الرقمية — Futures + Spot
         </small>
 
       </div>
@@ -2850,6 +3078,12 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;background-ima
             </td>
 
             <td>
+              <span class="access-type-pill">
+                ${String(item.accessType || "CRYPTO").toUpperCase() === "MARKETS" ? "MARKETS" : "CRYPTO"}
+              </span>
+            </td>
+
+            <td>
               ${escapeHtml(
                 item.name || "-"
               )}
@@ -3983,219 +4217,72 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;background-ima
 
     const sideText =
       isSpot
-        ? (positiveSide ? "BUY 🟢" : "SELL 🔴")
-        : (positiveSide ? "LONG 🟢" : "SHORT 🔴");
+        ? (positiveSide ? "BUY" : "SELL")
+        : (positiveSide ? "LONG" : "SHORT");
 
     const reasons =
-      Array.isArray(
-        rec.reasons
-      )
+      Array.isArray(rec.reasons)
         ? rec.reasons
         : [];
 
+    const tf =
+      Array.isArray(rec.timeframes) && rec.timeframes.length
+        ? rec.timeframes.join(" • ")
+        : "5m • 15m • 1h • 4h";
+
+    const marketLabel = isSpot ? "SPOT" : "FUTURES";
+
     return `
-
-      <article class="recommendation">
-
-        <div class="rec-head">
-
-          <div>
-
-            <div class="symbol">
-              ${escapeHtml(
-                rec.symbol
-              )}
-            </div>
-
-            <div
-              class="${sideClass}"
-              style="margin-top:7px;font-weight:800"
-            >
-              ${sideText}
-              •
-              ${escapeHtml(
-                (
-                  rec.timeframes || []
-                ).join(" + ")
-              )}
-            </div>
-
+      <article class="recommendation compact-recommendation">
+        <div class="compact-main">
+          <div class="compact-symbol-wrap">
+            <div class="symbol">${escapeHtml(rec.symbol)}</div>
+            <span class="market-mini">${marketLabel}</span>
+            <span class="tf-mini">${escapeHtml(tf)}</span>
           </div>
 
-          <div class="score-box">
+          <div class="compact-side ${sideClass}">${sideText}</div>
 
-            <div class="score">
-              ${Number(
-                rec.score || 0
-              )}
-            </div>
-
-            <div class="score-label">
-              قوة فنية
-            </div>
-
+          <div class="compact-score">
+            <strong>${Number(rec.score || 0)}</strong>
+            <span>Score</span>
           </div>
 
+          <div class="compact-metric">
+            <span>Entry</span>
+            <strong>${typeof rec.entry === "number" ? money(rec.entry) : escapeHtml(String(rec.entry ?? "-"))}</strong>
+          </div>
+
+          <div class="compact-metric">
+            <span>SL</span>
+            <strong>${typeof rec.sl === "number" ? money(rec.sl) : escapeHtml(String(rec.sl ?? "-"))}</strong>
+          </div>
+
+          <div class="compact-tps">
+            <span>TP1</span><strong>${typeof rec.tp1 === "number" ? money(rec.tp1) : escapeHtml(String(rec.tp1 ?? "-"))}</strong>
+            <span>TP2</span><strong>${typeof rec.tp2 === "number" ? money(rec.tp2) : escapeHtml(String(rec.tp2 ?? "-"))}</strong>
+            <span>TP3</span><strong>${typeof rec.tp3 === "number" ? money(rec.tp3) : escapeHtml(String(rec.tp3 ?? "-"))}</strong>
+          </div>
+
+          <div class="compact-change ${Number(rec.change24h) >= 0 ? "up" : "down"}">
+            24h ${percent(rec.change24h)}
+          </div>
+
+          <div class="compact-volume">
+            Vol ${formatVolume(rec.volume)}
+          </div>
         </div>
 
-
-        <div class="badges">
-
-          <div class="badge">
-            توافق:
-            ${rec.agreement || 0}
-            فواصل
-          </div>
-
-          <div class="badge">
-            24h:
-            ${percent(
-              rec.change24h
-            )}
-          </div>
-
-          <div class="badge">
-            Volume:
-            ${formatVolume(
-              rec.volume
-            )}
-          </div>
-
-          <div class="badge">
-            ${isSpot ? "السوق: Spot" : `رافعة: ${rec.leverage || 5}x`}
-          </div>
-
-          <div class="badge">
-            مخاطرة:
-            ${percent(
-              rec.riskPercent
-            )}
-          </div>
-
-          <div class="badge">
-            المخاطرة المالية: ${money(rec.riskMoney)}
-          </div>
-
+        <div class="compact-subline">
+          <span>توافق ${rec.agreement || 0} فواصل</span>
+          <span>${isSpot ? "Spot" : `رافعة ${rec.leverage || 5}x`}</span>
+          <span>مخاطرة ${percent(rec.riskPercent)}</span>
+          <span>حجم ${money(rec.positionNotional)}</span>
+          ${reasons.length ? `<span class="reason-preview">${escapeHtml(reasons.slice(0,2).join(" • "))}</span>` : ""}
         </div>
-
-
-        <div class="price-grid">
-
-          ${priceBox(
-            "Entry",
-            rec.entry
-          )}
-
-          ${priceBox(
-            "SL",
-            rec.sl
-          )}
-
-          ${priceBox(
-            "TP1",
-            rec.tp1
-          )}
-
-          ${priceBox(
-            "TP2",
-            rec.tp2
-          )}
-
-          ${priceBox(
-            "TP3",
-            rec.tp3
-          )}
-
-          ${priceBox(
-            "TP4",
-            rec.tp4
-          )}
-
-          ${priceBox(
-            "TP5",
-            rec.tp5
-          )}
-
-          ${priceBox(
-            "Runner",
-            (rec.runner || 20) +
-              "%"
-          )}
-
-        </div>
-
-
-        <div class="rec-line">
-
-          رأس المال:
-          <strong>
-            $
-            ${money(
-              rec.capital
-            )}
-          </strong>
-
-          —
-          المخاطرة:
-
-          <strong>
-            $
-            ${money(
-              rec.riskMoney
-            )}
-          </strong>
-
-        </div>
-
-
-        <div class="rec-line">
-
-          حجم الصفقة الاسمي المقترح:
-
-          <strong>
-            $
-            ${money(
-              rec.positionNotional
-            )}
-          </strong>
-
-        </div>
-
-
-        ${
-          reasons.length
-            ? `
-              <div class="reasons">
-
-                <strong>
-                  أسباب الإشارة:
-                </strong>
-
-                ${reasons
-                  .map(
-                    reason =>
-                      `
-                        <div class="reason">
-                          •
-                          ${escapeHtml(
-                            reason
-                          )}
-                        </div>
-                      `
-                  )
-                  .join("")}
-
-              </div>
-            `
-            : ""
-        }
-
       </article>
-
     `;
-
   }
-
 
   function priceBox(
     label,
