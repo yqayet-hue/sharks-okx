@@ -1,0 +1,4911 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="theme-color" content="#07111f">
+  <meta name="description" content="Sharks Recommendation">
+
+  <title>Sharks Recommendation</title>
+
+  <link rel="manifest" href="/manifest.json">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family:
+        Arial,
+        Tahoma,
+        sans-serif;
+
+      background:
+        radial-gradient(
+          circle at top,
+          #10213a 0,
+          #07111f 45%,
+          #030914 100%
+        );
+
+      color: #f5f7fb;
+      min-height: 100vh;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .container {
+      width: min(1450px, 96%);
+      margin: auto;
+      padding: 20px 0 50px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .brand {
+      font-size: 25px;
+      font-weight: 900;
+    }
+
+    .brand small {
+      display: block;
+      margin-top: 5px;
+      color: #91a4bd;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .top-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      border: 1px solid #263951;
+      background: #0e1b2d;
+      color: #fff;
+      padding: 11px 16px;
+      border-radius: 10px;
+      min-height: 44px;
+    }
+
+    .btn:hover {
+      background: #172940;
+    }
+
+    .btn-primary {
+      background: #1268de;
+      border-color: #287ce7;
+    }
+
+    .btn-danger {
+      background: #7e1d2c;
+      border-color: #a82a3c;
+    }
+
+    .btn-success {
+      background: #126d4d;
+      border-color: #19895f;
+    }
+
+    .btn-warning {
+      background: #73530e;
+      border-color: #99721d;
+    }
+
+    .panel {
+      background: rgba(10, 23, 40, .92);
+      border: 1px solid #20334b;
+      border-radius: 16px;
+      padding: 18px;
+      margin-bottom: 18px;
+    }
+
+    .panel-title {
+      font-size: 20px;
+      font-weight: 900;
+      margin-bottom: 15px;
+    }
+
+    .muted {
+      color: #91a4bd;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    /* LOGIN */
+
+    .login-wrap {
+      max-width: 550px;
+      margin: 70px auto;
+    }
+
+    .login-logo {
+      text-align: center;
+      font-size: 32px;
+      font-weight: 900;
+      margin-bottom: 8px;
+    }
+
+    .login-subtitle {
+      text-align: center;
+      color: #8fa3bc;
+      margin-bottom: 25px;
+    }
+
+    .input,
+    .select,
+    .textarea {
+      width: 100%;
+      background: #071321;
+      border: 1px solid #29405c;
+      color: #fff;
+      border-radius: 10px;
+      padding: 12px 14px;
+      outline: none;
+    }
+
+    .input:focus,
+    .select:focus,
+    .textarea:focus {
+      border-color: #438de8;
+    }
+
+    .textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .field {
+      margin-bottom: 14px;
+    }
+
+    .field label {
+      display: block;
+      margin-bottom: 7px;
+      color: #b8c7d9;
+      font-size: 14px;
+    }
+
+    .login-buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    /* SUBSCRIPTION */
+
+    .plans {
+      display: grid;
+      grid-template-columns:
+        repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+    }
+
+    .plan {
+      border: 1px solid #29405c;
+      background: #0a1829;
+      border-radius: 14px;
+      padding: 18px;
+    }
+
+    .plan-name {
+      font-size: 19px;
+      font-weight: 900;
+    }
+
+    .plan-days {
+      color: #91a4bd;
+      margin: 8px 0;
+    }
+
+    .plan-price {
+      font-size: 25px;
+      font-weight: 900;
+      margin: 12px 0;
+    }
+
+    /* PAYMENT */
+
+    .payment-grid {
+      display: grid;
+      grid-template-columns:
+        repeat(auto-fit, minmax(230px, 1fr));
+      gap: 12px;
+    }
+
+    .payment-method {
+      border: 1px solid #29405c;
+      background: #0a1829;
+      border-radius: 14px;
+      padding: 16px;
+    }
+
+    .payment-method h3 {
+      margin-top: 0;
+    }
+
+    .payment-details {
+      background: #06101d;
+      border-radius: 9px;
+      padding: 10px;
+      white-space: pre-wrap;
+      word-break: break-word;
+      margin: 10px 0;
+      color: #c9d6e5;
+    }
+
+    .payment-qr {
+      display: block;
+      width: min(280px, 100%);
+      max-height: 280px;
+      object-fit: contain;
+      margin: 12px auto;
+      padding: 10px;
+      background: #fff;
+      border-radius: 14px;
+      border: 1px solid #d9e2ec;
+    }
+
+    .qr-preview {
+      margin-top: 10px;
+      padding: 10px;
+      background: #06101d;
+      border: 1px solid #29405c;
+      border-radius: 12px;
+      text-align: center;
+    }
+
+    .qr-preview img {
+      width: min(220px, 100%);
+      max-height: 220px;
+      object-fit: contain;
+      background: #fff;
+      border-radius: 10px;
+      padding: 8px;
+    }
+
+    /* STATUS */
+
+    .status {
+      padding: 12px 14px;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      background: #0d1c2d;
+      border: 1px solid #243b55;
+    }
+
+    .status.success {
+      background: #08251d;
+      border-color: #176849;
+    }
+
+    .status.error {
+      background: #2b0c13;
+      border-color: #7b2335;
+    }
+
+    .status.warning {
+      background: #281e08;
+      border-color: #6f581b;
+    }
+
+    /* FILTERS */
+
+    .filters {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 15px;
+    }
+
+    .filter {
+      border: 1px solid #29405c;
+      background: #0a1829;
+      color: #dce8f5;
+      padding: 10px 18px;
+      border-radius: 20px;
+      min-height: 42px;
+    }
+
+    .filter.active {
+      background: #1467d7;
+      border-color: #3987ec;
+    }
+
+    /* SUBSCRIPTION BAR */
+
+    .subscription-bar {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .subscription-time {
+      font-size: 20px;
+      font-weight: 900;
+    }
+
+    /* RECOMMENDATIONS */
+
+    .recommendations {
+      display: grid;
+      grid-template-columns:
+        repeat(auto-fit, minmax(390px, 1fr));
+      gap: 14px;
+    }
+
+    .recommendation {
+      background: #0b192a;
+      border: 1px solid #243a53;
+      border-radius: 16px;
+      padding: 15px;
+    }
+
+    .rec-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .symbol {
+      font-size: 21px;
+      font-weight: 900;
+    }
+
+    .side-long {
+      color: #22e39b;
+    }
+
+    .side-short {
+      color: #ff5369;
+    }
+
+    .score {
+      font-size: 40px;
+      font-weight: 900;
+      line-height: 1;
+    }
+
+    .score-label {
+      color: #91a4bd;
+      font-size: 12px;
+      margin-top: 5px;
+    }
+
+    .score-box {
+      text-align: left;
+    }
+
+    .rec-line {
+      margin: 9px 0;
+      color: #bdccdc;
+    }
+
+    .badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin: 13px 0;
+    }
+
+    .badge {
+      border: 1px solid #29405c;
+      background: #071321;
+      padding: 7px 9px;
+      border-radius: 8px;
+      font-size: 12px;
+      color: #c5d3e3;
+    }
+
+    .price-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 9px;
+      margin-top: 13px;
+    }
+
+    .price-box {
+      background: #071321;
+      border: 1px solid #243b55;
+      border-radius: 10px;
+      padding: 10px;
+    }
+
+    .price-box span {
+      display: block;
+      color: #8297af;
+      font-size: 12px;
+      margin-bottom: 5px;
+    }
+
+    .price-box strong {
+      font-size: 18px;
+      word-break: break-all;
+    }
+
+    .reasons {
+      margin-top: 13px;
+      padding: 12px;
+      background: #071321;
+      border-radius: 10px;
+      color: #b7c7d9;
+      line-height: 1.7;
+    }
+
+    .reason {
+      margin-bottom: 4px;
+    }
+
+    /* ADMIN */
+
+    .admin-grid {
+      display: grid;
+      grid-template-columns:
+        repeat(auto-fit, minmax(250px, 1fr));
+      gap: 12px;
+    }
+
+    .stat {
+      background: #071321;
+      border: 1px solid #243b55;
+      border-radius: 12px;
+      padding: 15px;
+    }
+
+    .stat-label {
+      color: #8fa3bc;
+      font-size: 13px;
+    }
+
+    .stat-value {
+      font-size: 28px;
+      font-weight: 900;
+      margin-top: 5px;
+    }
+
+    .admin-table-wrap {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 750px;
+    }
+
+    th,
+    td {
+      padding: 11px;
+      border-bottom: 1px solid #20344c;
+      text-align: right;
+    }
+
+    th {
+      color: #9fb0c4;
+      font-size: 13px;
+    }
+
+    td {
+      color: #e4ebf4;
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 5px 9px;
+      border-radius: 999px;
+      font-size: 12px;
+    }
+
+    .pill-active {
+      background: #083c2d;
+      color: #38e5a7;
+    }
+
+    .pill-expired {
+      background: #37200a;
+      color: #ffbe54;
+    }
+
+    .pill-revoked {
+      background: #3a0d16;
+      color: #ff6477;
+    }
+
+    .pill-pending {
+      background: #3a2a07;
+      color: #ffd15e;
+    }
+
+    .admin-actions {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    /* SETTINGS */
+
+    .settings-grid {
+      display: grid;
+      grid-template-columns:
+        repeat(auto-fit, minmax(210px, 1fr));
+      gap: 12px;
+    }
+
+    /* MARKET SWITCH */
+
+    .market-switch {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .market-btn {
+      border: 1px solid #29405c;
+      background: #071321;
+      color: #dce8f5;
+      padding: 14px 16px;
+      border-radius: 12px;
+      font-weight: 900;
+      min-height: 50px;
+    }
+
+    .market-btn.active {
+      background: #1268de;
+      border-color: #438de8;
+    }
+
+    .coin-search {
+      display: flex;
+      gap: 10px;
+      align-items: stretch;
+      margin-top: 14px;
+    }
+
+    .coin-search .input {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .coin-search .btn {
+      white-space: nowrap;
+    }
+
+    .search-hint {
+      margin-top: 8px;
+      font-size: 13px;
+      opacity: .8;
+    }
+
+    .market-badge {
+      display: inline-block;
+      margin-right: 8px;
+      padding: 5px 9px;
+      border-radius: 999px;
+      background: #071321;
+      border: 1px solid #29405c;
+      font-size: 12px;
+    }
+
+    .spot-placeholder {
+      text-align: center;
+      padding: 35px 20px;
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 650px) {
+      .container {
+        width: 94%;
+      }
+
+      .recommendations {
+        grid-template-columns: 1fr;
+      }
+
+      .recommendation {
+        min-width: 0;
+      }
+
+      .login-buttons {
+        grid-template-columns: 1fr;
+      }
+
+      .market-switch {
+        grid-template-columns: 1fr;
+      }
+
+      .price-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .brand {
+        font-size: 21px;
+      }
+
+      .score {
+        font-size: 32px;
+      }
+    }
+  </style>
+
+<style id="sharks-modern-overrides">
+:root{--shark-bg:#050816;--shark-panel:rgba(10,16,35,.78);--shark-line:rgba(124,151,255,.20);--shark-accent:#7c5cff;--shark-cyan:#22d3ee;--shark-green:#28e7a5;--shark-red:#ff5d7d;--shark-text:#f7f9ff;--shark-muted:#9aa9c5}
+html{scroll-behavior:smooth}
+body{background:radial-gradient(900px 500px at 10% -10%,rgba(124,92,255,.25),transparent 60%),radial-gradient(700px 500px at 95% 5%,rgba(34,211,238,.14),transparent 58%),linear-gradient(145deg,#040611,#071226 55%,#040611)!important;color:var(--shark-text)!important}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:38px 38px;mask-image:linear-gradient(to bottom,#000,transparent 90%);z-index:-1}
+.container{width:min(1540px,94%);padding:30px 0 70px}
+.topbar{padding:18px 22px;border:1px solid var(--shark-line);background:rgba(8,14,30,.70);backdrop-filter:blur(18px);border-radius:24px;box-shadow:0 20px 60px rgba(0,0,0,.28);position:sticky;top:12px;z-index:20}
+.brand{font-size:30px;letter-spacing:.2px;background:linear-gradient(90deg,#fff,#b9a9ff 45%,#5de7ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.brand small{color:var(--shark-muted)}
+.panel{background:linear-gradient(145deg,rgba(13,22,45,.88),rgba(7,13,29,.82));border:1px solid var(--shark-line);border-radius:22px;padding:24px;margin-bottom:20px;box-shadow:0 18px 55px rgba(0,0,0,.22);backdrop-filter:blur(16px)}
+.panel-title{font-size:23px;letter-spacing:.2px}.btn{border:1px solid rgba(124,151,255,.24);background:rgba(19,29,55,.86);border-radius:14px;min-height:46px;padding:11px 18px;transition:.18s transform,.18s box-shadow,.18s background}.btn:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(0,0,0,.25)}.btn-primary{background:linear-gradient(135deg,#7357ff,#4f7cff);border-color:transparent;box-shadow:0 10px 30px rgba(91,82,255,.25)}.btn-success{background:linear-gradient(135deg,#0b9f78,#23d8a4);border-color:transparent}.btn-warning{background:linear-gradient(135deg,#a06a0b,#d49b28);border-color:transparent}.btn-danger{background:linear-gradient(135deg,#9f2948,#e34f73);border-color:transparent}
+.input,.select,.textarea{background:rgba(4,9,22,.82);border:1px solid rgba(124,151,255,.22);border-radius:14px;padding:14px 16px;min-height:48px}.input:focus,.select:focus,.textarea:focus{border-color:#7c5cff;box-shadow:0 0 0 4px rgba(124,92,255,.12)}
+.coin-search{display:grid!important;grid-template-columns:1fr auto auto;gap:12px;align-items:center}.coin-search .input{font-size:18px;min-height:56px}.coin-search .btn{min-height:56px}
+.recommendations{display:grid;grid-template-columns:repeat(auto-fit,minmax(420px,1fr));gap:18px}.recommendation{position:relative;overflow:hidden;background:linear-gradient(145deg,rgba(17,27,55,.95),rgba(7,13,29,.92));border:1px solid rgba(124,151,255,.22);border-radius:24px;padding:22px;box-shadow:0 18px 45px rgba(0,0,0,.24);transition:.2s transform,.2s border-color}.recommendation:hover{transform:translateY(-4px);border-color:rgba(124,92,255,.55)}.recommendation:before{content:"";position:absolute;inset:0 auto 0 0;width:3px;background:linear-gradient(#7c5cff,#22d3ee);opacity:.8}.symbol{font-size:29px;font-weight:950;letter-spacing:.4px}.score-box{min-width:78px;padding:10px 12px;border-radius:17px;background:rgba(124,92,255,.12);border:1px solid rgba(124,92,255,.25);text-align:center}.score{font-size:27px;font-weight:950}.score-label{font-size:11px;color:var(--shark-muted)}.badge{background:rgba(255,255,255,.045);border:1px solid rgba(124,151,255,.14);border-radius:999px;padding:8px 11px;color:#c8d3e7}.price-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:15px}.price-box{background:rgba(3,8,19,.7);border:1px solid rgba(124,151,255,.12);border-radius:14px;padding:11px}.price-box span{display:block;color:#8e9db7;font-size:11px;margin-bottom:4px}.price-box strong{font-size:15px}.reasons{margin-top:16px;padding:14px;border-radius:16px;background:rgba(34,211,238,.045);border:1px solid rgba(34,211,238,.12)}
+.status{border-radius:15px!important}.filters{gap:10px!important}.filter{border-radius:999px!important;padding:10px 18px!important;background:rgba(15,24,48,.8)!important;border:1px solid rgba(124,151,255,.18)!important}.filter.active{background:linear-gradient(135deg,#6e55ff,#4e7eff)!important;border-color:transparent!important}
+.admin-grid{grid-template-columns:repeat(auto-fit,minmax(180px,1fr))!important}.admin-table-wrap{border:1px solid rgba(124,151,255,.14);border-radius:18px;overflow:auto}.admin-table-wrap table{min-width:900px}.admin-table-wrap th{background:rgba(124,92,255,.10)}
+#codeEditModal.hidden{display:none!important}
+#codeEditModal{position:fixed;inset:0;background:rgba(0,0,0,.68);backdrop-filter:blur(10px);z-index:100;display:flex;align-items:center;justify-content:center;padding:20px}.code-edit-card{width:min(560px,100%);background:linear-gradient(145deg,#101a36,#080d1e);border:1px solid rgba(124,151,255,.28);border-radius:24px;padding:25px;box-shadow:0 30px 100px rgba(0,0,0,.5)}.code-edit-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.code-edit-grid .full{grid-column:1/-1}.modal-actions{display:flex;gap:10px;justify-content:flex-start;margin-top:18px}
+.sharks-hero{display:grid;grid-template-columns:1.4fr .6fr;gap:16px;margin-bottom:18px}.sharks-hero-main{padding:28px;border-radius:24px;background:linear-gradient(135deg,rgba(124,92,255,.20),rgba(34,211,238,.08));border:1px solid rgba(124,151,255,.20)}.sharks-hero-main h1{font-size:clamp(30px,4vw,48px);margin:0 0 8px}.sharks-hero-main p{color:#aebbd1;font-size:16px;line-height:1.8;margin:0}.sharks-live{padding:22px;border-radius:24px;background:rgba(8,15,32,.72);border:1px solid rgba(124,151,255,.20)}.live-dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:#28e7a5;box-shadow:0 0 16px #28e7a5;margin-left:7px}
+@media(max-width:800px){.coin-search{grid-template-columns:1fr}.recommendations{grid-template-columns:1fr}.price-grid{grid-template-columns:repeat(2,1fr)}.sharks-hero{grid-template-columns:1fr}.topbar{position:relative;top:0}}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <!-- =====================================================
+       LOGIN
+  ====================================================== -->
+
+  <section id="loginPage">
+
+    <div class="login-wrap">
+
+      <div class="panel">
+
+        <div class="login-logo">
+          Sharks
+        </div>
+
+        <div class="login-subtitle">
+          Spot + Futures Recommendation System
+        </div>
+
+        <div id="loginStatus"></div>
+
+        <div class="field">
+          <label>
+            كود الاشتراك
+          </label>
+
+          <input
+            id="accessCode"
+            class="input"
+            placeholder="SH-XXXXX-XXXXX"
+            autocomplete="off"
+          >
+        </div>
+
+        <div class="field">
+          <label>
+            اسمك أو اسم المستخدم
+          </label>
+
+          <input
+            id="customerName"
+            class="input"
+            placeholder="اختياري"
+          >
+        </div>
+
+        <div class="login-buttons">
+
+          <button
+            id="loginBtn"
+            class="btn btn-primary"
+            type="button"
+          >
+            🔴 دخول Futures
+          </button>
+        </div>
+
+        <button
+          id="showPlansBtn"
+          class="btn"
+          style="width:100%;margin-top:10px"
+          type="button"
+        >
+          الاشتراكات والدفع
+        </button>
+
+        <button
+          id="showAdminBtn"
+          class="btn"
+          style="width:100%;margin-top:10px"
+          type="button"
+        >
+          دخول الإدارة
+        </button>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =====================================================
+       PLANS
+  ====================================================== -->
+
+  <section id="plansPage" class="hidden">
+
+    <div class="topbar">
+
+      <div>
+        <div class="brand">
+          الاشتراكات والدفع
+        </div>
+
+        <small class="muted">
+          اختر المدة المناسبة ثم أرسل طلب الدفع
+        </small>
+      </div>
+
+      <button
+        id="backLoginBtn"
+        class="btn"
+        type="button"
+      >
+        رجوع
+      </button>
+
+    </div>
+
+    <div
+      id="plansStatus"
+      class="status hidden"
+    ></div>
+
+    <div class="panel">
+
+      <div class="panel-title">
+        اختر الاشتراك
+      </div>
+
+      <div id="plansList" class="plans"></div>
+
+    </div>
+
+    <div class="panel">
+
+      <div class="panel-title">
+        إرسال طلب الدفع
+      </div>
+
+      <div class="field">
+
+        <label>
+          المدة
+        </label>
+
+        <select
+          id="paymentPlan"
+          class="select"
+        >
+          <option value="2">يومين</option>
+          <option value="3">3 أيام</option>
+          <option value="5">5 أيام</option>
+          <option value="7">أسبوع</option>
+          <option value="10">10 أيام</option>
+          <option value="30">30 يوم</option>
+          <option value="custom">مدة مخصصة</option>
+        </select>
+
+        <input
+          id="customPlanDays"
+          class="input hidden"
+          type="number"
+          min="1"
+          max="3650"
+          placeholder="عدد الأيام المخصص"
+          style="margin-top:10px"
+        >
+
+      </div>
+
+      <div class="field">
+
+        <label>
+          طريقة الدفع
+        </label>
+
+        <select
+          id="paymentMethod"
+          class="select"
+        ></select>
+
+      </div>
+
+      <div
+        id="paymentInstructions"
+        class="payment-details"
+      >
+        اختر طريقة الدفع
+      </div>
+
+      <div class="field">
+
+        <label>
+          الاسم
+        </label>
+
+        <input
+          id="payName"
+          class="input"
+        >
+
+      </div>
+
+      <div class="field">
+
+        <label>
+          رقم الهاتف / وسيلة التواصل
+        </label>
+
+        <input
+          id="payContact"
+          class="input"
+          placeholder="WhatsApp / Telegram / هاتف"
+        >
+
+      </div>
+
+      <div class="field">
+
+        <label>
+          رقم العملية / TXID
+        </label>
+
+        <input
+          id="transactionId"
+          class="input"
+          placeholder="إذا كان متوفرًا"
+        >
+
+      </div>
+
+      <div class="field">
+
+        <label>
+          ملاحظات
+        </label>
+
+        <textarea
+          id="paymentNote"
+          class="textarea"
+          placeholder="أي معلومات إضافية"
+        ></textarea>
+
+      </div>
+
+      <button
+        id="sendPaymentBtn"
+        class="btn btn-primary"
+        type="button"
+      >
+        إرسال طلب الدفع
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <!-- =====================================================
+       ADMIN LOGIN
+  ====================================================== -->
+
+  <section id="adminLoginPage" class="hidden">
+
+    <div class="login-wrap">
+
+      <div class="panel">
+
+        <div class="login-logo">
+          لوحة الإدارة
+        </div>
+
+        <div class="login-subtitle">
+          Sharks Recommendation
+        </div>
+
+        <div
+          id="adminLoginStatus"
+          class="status hidden"
+        ></div>
+
+        <div class="field">
+
+          <label>
+            كلمة مرور الإدارة
+          </label>
+
+          <input
+            id="adminPassword"
+            class="input"
+            type="password"
+          >
+
+        </div>
+
+        <button
+          id="adminLoginBtn"
+          class="btn btn-primary"
+          style="width:100%"
+          type="button"
+        >
+          دخول الإدارة
+        </button>
+
+        <button
+          id="adminBackBtn"
+          class="btn"
+          style="width:100%;margin-top:10px"
+          type="button"
+        >
+          رجوع
+        </button>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =====================================================
+       ADMIN
+  ====================================================== -->
+
+  <div id="codeEditModal" class="hidden" aria-hidden="true">
+  <div class="code-edit-card">
+    <div class="panel-title">تعديل الاشتراك</div>
+    <div class="muted" style="margin-bottom:16px">عدّل الاسم والمدة وعدد الأجهزة بدون إنشاء كود جديد.</div>
+    <div class="code-edit-grid">
+      <div class="field full"><label>الكود</label><input id="editCode" class="input" readonly></div>
+      <div class="field full"><label>اسم العميل</label><input id="editName" class="input" placeholder="اسم العميل"></div>
+      <div class="field"><label>المدة بالأيام</label><input id="editDays" class="input" type="number" min="1" max="3650"></div>
+      <div class="field"><label>عدد الأجهزة</label><input id="editMaxDevices" class="input" type="number" min="1" max="20"></div>
+    </div>
+    <div id="editCodeStatus" class="status hidden"></div>
+    <div class="modal-actions">
+      <button id="saveCodeEditBtn" class="btn btn-success" type="button">حفظ التعديلات</button>
+      <button id="cancelCodeEditBtn" class="btn" type="button">إلغاء</button>
+    </div>
+  </div>
+</div>
+
+<section id="adminPage" class="hidden">
+
+    <div class="topbar">
+
+      <div>
+
+        <div class="brand">
+          لوحة الإدارة 👑
+        </div>
+
+        <small class="muted">
+          إدارة الاشتراكات والدفع والإعدادات
+        </small>
+
+      </div>
+
+      <div class="top-actions">
+
+        <button
+          id="adminRefreshBtn"
+          class="btn"
+          type="button"
+        >
+          تحديث
+        </button>
+
+        <button
+          id="adminLogoutBtn"
+          class="btn btn-danger"
+          type="button"
+        >
+          خروج
+        </button>
+
+      </div>
+
+    </div>
+
+    <div
+      id="adminStatus"
+      class="status hidden"
+    ></div>
+
+
+    <!-- STATS -->
+
+    <div class="panel">
+
+      <div class="panel-title">
+        الإحصائيات
+      </div>
+
+      <div
+        id="adminStats"
+        class="admin-grid"
+      ></div>
+
+    </div>
+
+
+    <!-- CREATE CODE -->
+
+    <div class="panel">
+
+      <div class="panel-title">
+        إنشاء اشتراك جديد
+      </div>
+
+      <div class="settings-grid">
+
+        <div class="field">
+
+          <label>
+            اسم العميل
+          </label>
+
+          <input
+            id="newCodeName"
+            class="input"
+            placeholder="صديق / أخ / عميل"
+          >
+
+        </div>
+
+        <div class="field">
+
+          <label>
+            المدة
+          </label>
+
+          <select
+            id="newCodeDays"
+            class="select"
+          >
+            <option value="2">يومين</option>
+            <option value="3">3 أيام</option>
+            <option value="5">5 أيام</option>
+            <option value="7">7 أيام</option>
+            <option value="10">10 أيام</option>
+            <option value="30">30 يوم</option>
+            <option value="custom">مخصص</option>
+          </select>
+
+        </div>
+
+        <div
+          id="customDaysField"
+          class="field hidden"
+        >
+
+          <label>
+            عدد الأيام المخصص
+          </label>
+
+          <input
+            id="customDays"
+            class="input"
+            type="number"
+            min="1"
+            max="3650"
+            value="14"
+          >
+
+        </div>
+
+        <div class="field">
+
+          <label>
+            عدد الأجهزة
+          </label>
+
+          <input
+            id="maxDevices"
+            class="input"
+            type="number"
+            min="1"
+            max="20"
+            value="1"
+          >
+
+        </div>
+
+      </div>
+
+      <button
+        id="createCodeBtn"
+        class="btn btn-success"
+        type="button"
+      >
+        إنشاء الكود
+      </button>
+
+      <div
+        id="newCodeResult"
+        class="status hidden"
+        style="margin-top:12px"
+      ></div>
+
+    </div>
+
+
+    <!-- CODES -->
+
+    <div class="panel">
+
+      <div class="panel-title">
+        الأكواد
+      </div>
+
+      <div class="admin-table-wrap">
+
+        <table>
+
+          <thead>
+
+            <tr>
+              <th>الكود</th>
+              <th>العميل</th>
+              <th>المدة</th>
+              <th>الحالة</th>
+              <th>الانتهاء</th>
+              <th>الأجهزة</th>
+              <th>إجراءات</th>
+            </tr>
+
+          </thead>
+
+          <tbody id="codesTable"></tbody>
+
+        </table>
+
+      </div>
+
+    </div>
+
+
+    <!-- PAYMENTS -->
+
+    <div class="panel">
+
+      <div class="panel-title">
+        طلبات الدفع
+      </div>
+
+      <div class="admin-table-wrap">
+
+        <table>
+
+          <thead>
+
+            <tr>
+              <th>ID</th>
+              <th>العميل</th>
+              <th>المدة</th>
+              <th>الطريقة</th>
+              <th>TXID</th>
+              <th>الحالة</th>
+              <th>إجراءات</th>
+            </tr>
+
+          </thead>
+
+          <tbody id="paymentsTable"></tbody>
+
+        </table>
+
+      </div>
+
+    </div>
+
+
+    <!-- PAYMENT METHODS -->
+
+    <div class="panel">
+
+      <div class="panel-title">
+        طرق الدفع
+      </div>
+
+      <div
+        style="margin-bottom:12px;color:#91a4bd;font-size:13px"
+      >
+        ارفع صورة QR الخاصة بطريقة الدفع. بعد الحفظ ستظهر للعميل مباشرة داخل صفحة الدفع.
+      </div>
+
+      <div id="paymentMethodsAdmin"></div>
+
+      <button
+        id="savePaymentMethodsBtn"
+        class="btn btn-success"
+        type="button"
+        style="margin-top:12px"
+      >
+        حفظ طرق الدفع
+      </button>
+
+    </div>
+
+
+    <!-- SETTINGS -->
+
+    <div class="panel">
+
+      <div class="panel-title">
+        إعدادات التحليل
+      </div>
+
+      <div
+        id="settingsForm"
+        class="settings-grid"
+      >
+
+        <div class="field">
+          <label>رأس المال $</label>
+          <input
+            id="sCapital"
+            class="input"
+            type="number"
+            min="1"
+          >
+        </div>
+
+        <div class="field">
+          <label>المخاطرة %</label>
+          <input
+            id="sRisk"
+            class="input"
+            type="number"
+            min="0.01"
+            step="0.01"
+          >
+        </div>
+
+        <div class="field">
+          <label>الرافعة</label>
+          <input
+            id="sLeverage"
+            class="input"
+            type="number"
+            min="1"
+            max="125"
+          >
+        </div>
+
+        <div class="field">
+          <label>أقصى عدد صفقات</label>
+          <input
+            id="sMaxPositions"
+            class="input"
+            type="number"
+            min="1"
+          >
+        </div>
+
+        <div class="field">
+          <label>أقل درجة</label>
+          <input
+            id="sMinScore"
+            class="input"
+            type="number"
+            min="0"
+            max="100"
+          >
+        </div>
+
+        <div class="field">
+          <label>Runner %</label>
+          <input
+            id="sRunner"
+            class="input"
+            type="number"
+            min="0"
+            max="100"
+          >
+        </div>
+
+        <div class="field">
+          <label>TP1 %</label>
+          <input
+            id="sTP1"
+            class="input"
+            type="number"
+            step="0.01"
+          >
+        </div>
+
+        <div class="field">
+          <label>TP2 %</label>
+          <input
+            id="sTP2"
+            class="input"
+            type="number"
+            step="0.01"
+          >
+        </div>
+
+        <div class="field">
+          <label>TP3 %</label>
+          <input
+            id="sTP3"
+            class="input"
+            type="number"
+            step="0.01"
+          >
+        </div>
+
+        <div class="field">
+          <label>TP4 %</label>
+          <input
+            id="sTP4"
+            class="input"
+            type="number"
+            step="0.01"
+          >
+        </div>
+
+        <div class="field">
+          <label>TP5 %</label>
+          <input
+            id="sTP5"
+            class="input"
+            type="number"
+            step="0.01"
+          >
+        </div>
+
+        <div class="field">
+          <label>الفحص كل كم ثانية</label>
+          <input
+            id="sInterval"
+            class="input"
+            type="number"
+            min="30"
+          >
+        </div>
+
+      </div>
+
+      <button
+        id="saveSettingsBtn"
+        class="btn btn-success"
+        type="button"
+        style="margin-top:12px"
+      >
+        حفظ الإعدادات
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <!-- =====================================================
+       MAIN APP
+  ====================================================== -->
+
+  <section id="appPage" class="hidden">
+
+    <div class="topbar">
+
+      <div>
+
+        <div class="brand">
+          Sharks Recommendation
+        </div>
+
+        <small class="muted">
+          تحليل فني متعدد الفريمات — Spot + Futures — توصيات فقط
+        </small>
+
+      </div>
+
+      <div class="top-actions">
+
+        <button
+          id="refreshBtn"
+          class="btn btn-primary"
+          type="button"
+        >
+          تحديث
+        </button>
+
+        <button
+          id="logoutBtn"
+          class="btn btn-danger"
+          type="button"
+        >
+          خروج
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <!-- SUBSCRIPTION -->
+
+    <div class="panel">
+
+      <div class="subscription-bar">
+
+        <div>
+
+          <div class="muted">
+            الاشتراك
+          </div>
+
+          <div
+            id="subscriptionStatus"
+            class="subscription-time"
+          >
+            جاري التحقق...
+          </div>
+
+        </div>
+
+        <button
+          id="renewBtn"
+          class="btn btn-warning"
+          type="button"
+        >
+          تجديد الاشتراك
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <!-- MARKET SWITCH -->
+
+    <div class="panel">
+
+      <div class="panel-title">
+        اختر السوق
+      </div>
+
+      <div class="market-switch">
+
+        <button
+          id="marketFuturesBtn"
+          class="market-btn active"
+          type="button"
+        >
+          🔴 Futures
+        </button>
+
+        <button
+          id="marketSpotBtn"
+          class="market-btn"
+          type="button"
+        >
+          🟢 Spot
+        </button>
+
+      </div>
+
+      <div id="marketDescription" class="muted">
+        وضع Futures — توصيات عقود Futures فقط.
+      </div>
+
+      <div class="coin-search">
+        <input
+          id="coinSearchInput"
+          class="input"
+          type="search"
+          placeholder="ابحث عن عملة — BTC أو BTCUSDT أو BTC-USDT"
+          autocomplete="off"
+          spellcheck="false"
+        >
+
+        <button
+          id="coinSearchBtn"
+          class="btn btn-primary"
+          type="button"
+        >
+          🔎 بحث
+        </button>
+
+        <button
+          id="coinClearSearchBtn"
+          class="btn"
+          type="button"
+        >
+          مسح
+        </button>
+      </div>
+
+      <div class="search-hint">
+        البحث يستخدم بيانات OKX مباشرة عبر النظام. في Futures اكتب مثل BTC أو BTCUSDT،
+        وفي Spot اكتب BTC أو BTCUSDT.
+      </div>
+
+    </div>
+
+
+    <!-- WARNING -->
+
+    <div class="status warning">
+
+      النظام يفحص أسواق OKX ويحلل عقود USDT Perpetual النشطة
+      وأزواج Spot الأعلى نشاطًا.
+
+      <br>
+
+      <strong>
+        الدرجة من 0 إلى 100 هي درجة فنية داخلية
+        وليست احتمال ربح أو ضمانًا.
+      </strong>
+
+    </div>
+
+
+    <!-- FILTERS -->
+
+    <div class="filters">
+
+      <button
+        class="filter active"
+        data-filter="ALL"
+        type="button"
+      >
+        الكل
+      </button>
+
+      <button
+        class="filter"
+        data-filter="LONG"
+        type="button"
+      >
+        LONG 🟢
+      </button>
+
+      <button
+        class="filter"
+        data-filter="SHORT"
+        type="button"
+      >
+        SHORT 🔴
+      </button>
+
+    </div>
+
+
+    <div
+      id="marketStatus"
+      class="status"
+    >
+      جاري تحميل التحليل...
+    </div>
+
+
+    <div
+      id="recommendations"
+      class="recommendations"
+    ></div>
+
+  </section>
+
+</div>
+
+
+<script>
+(function () {
+
+  "use strict";
+
+  // ==========================================================
+  // STATE
+  // ==========================================================
+
+  let userToken =
+    localStorage.getItem(
+      "bf_user_token"
+    ) || "";
+
+  let adminToken =
+    localStorage.getItem(
+      "bf_admin_token"
+    ) || "";
+
+  let currentFilter = "ALL";
+
+  let currentSearch = "";
+
+  let currentMarket =
+    localStorage.getItem("sharks_market") || localStorage.getItem("adiga_market") || "FUTURES";
+
+  // Sharks automatic refresh: reads the server's cached scan result.
+  // It does NOT send market-data requests to OKX from the browser.
+  const AUTO_REFRESH_MS = 15000;
+  let autoRefreshTimer = null;
+  let refreshInProgress = false;
+
+  function startAutoRefresh() {
+    if (autoRefreshTimer) clearInterval(autoRefreshTimer);
+
+    autoRefreshTimer = setInterval(async () => {
+      if (!userToken || document.visibilityState !== "visible") return;
+      await loadRecommendations(true);
+    }, AUTO_REFRESH_MS);
+  }
+
+  function stopAutoRefresh() {
+    if (autoRefreshTimer) {
+      clearInterval(autoRefreshTimer);
+      autoRefreshTimer = null;
+    }
+  }
+
+
+  let recommendations = [];
+
+  let paymentMethods = [];
+
+  let adminCodes = [];
+
+  let adminPayments = [];
+
+
+  // ==========================================================
+  // ELEMENTS
+  // ==========================================================
+
+  const $ = id =>
+    document.getElementById(id);
+
+
+  const pages = {
+    login: $("loginPage"),
+    plans: $("plansPage"),
+    adminLogin: $("adminLoginPage"),
+    admin: $("adminPage"),
+    app: $("appPage")
+  };
+
+
+  // ==========================================================
+  // PAGE SWITCH
+  // ==========================================================
+
+  function showPage(page) {
+
+    Object.values(pages).forEach(
+      p => p.classList.add("hidden")
+    );
+
+    page.classList.remove("hidden");
+  }
+
+
+  // ==========================================================
+  // DEVICE ID
+  // ==========================================================
+
+  function getDeviceId() {
+
+    let id =
+      localStorage.getItem(
+        "bf_device_id"
+      );
+
+    if (!id) {
+
+      id =
+        "device-" +
+        Math.random()
+          .toString(36)
+          .slice(2) +
+        Date.now();
+
+      localStorage.setItem(
+        "bf_device_id",
+        id
+      );
+    }
+
+    return id;
+  }
+
+
+  // ==========================================================
+  // STATUS
+  // ==========================================================
+
+  function showStatus(
+    element,
+    message,
+    type = ""
+  ) {
+
+    element.textContent =
+      message;
+
+    element.className =
+      "status";
+
+    if (type) {
+      element.classList.add(type);
+    }
+
+    element.classList.remove(
+      "hidden"
+    );
+  }
+
+
+  // ==========================================================
+  // FORMAT
+  // ==========================================================
+
+  function money(value) {
+
+    const n =
+      Number(value);
+
+    if (!Number.isFinite(n)) {
+      return "-";
+    }
+
+    return n.toLocaleString(
+      "en-US",
+      {
+        maximumFractionDigits: 6
+      }
+    );
+  }
+
+
+  function percent(value) {
+
+    const n =
+      Number(value);
+
+    if (!Number.isFinite(n)) {
+      return "-";
+    }
+
+    return n.toFixed(2) + "%";
+  }
+
+
+  function formatDate(timestamp) {
+
+    if (!timestamp) {
+      return "-";
+    }
+
+    return new Date(
+      Number(timestamp)
+    ).toLocaleString(
+      "ar-JO",
+      {
+        dateStyle: "medium",
+        timeStyle: "short"
+      }
+    );
+  }
+
+
+  function remainingText(
+    expiresAt
+  ) {
+
+    const diff =
+      Number(expiresAt) -
+      Date.now();
+
+    if (diff <= 0) {
+      return "منتهي";
+    }
+
+    const days =
+      Math.floor(
+        diff /
+        (24 * 60 * 60 * 1000)
+      );
+
+    const hours =
+      Math.floor(
+        (
+          diff %
+          (24 * 60 * 60 * 1000)
+        ) /
+        (60 * 60 * 1000)
+      );
+
+    const minutes =
+      Math.floor(
+        (
+          diff %
+          (60 * 60 * 1000)
+        ) /
+        (60 * 1000)
+      );
+
+    if (days > 0) {
+      return `${days} يوم ${hours} ساعة`;
+    }
+
+    if (hours > 0) {
+      return `${hours} ساعة ${minutes} دقيقة`;
+    }
+
+    return `${minutes} دقيقة`;
+  }
+
+
+  // ==========================================================
+  // LOGIN
+  // ==========================================================
+
+  // ==========================================================
+  // LOGIN - ENTER KEY
+  // ==========================================================
+
+  $("accessCode")?.addEventListener("keydown", event => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      $("loginBtn")?.click();
+    }
+  });
+
+
+  $("loginBtn")
+    .addEventListener(
+      "click",
+      async () => {
+
+        const code =
+          $("accessCode")
+            .value
+            .trim()
+            .toUpperCase();
+
+        if (!code) {
+
+          showStatus(
+            $("loginStatus"),
+            "أدخل كود الاشتراك أولاً.",
+            "error"
+          );
+
+          return;
+        }
+
+        showStatus(
+          $("loginStatus"),
+          "جاري التحقق من الكود..."
+        );
+
+        try {
+
+          const response =
+            await fetch(
+              "/api/access/login",
+              {
+                method: "POST",
+
+                headers: {
+                  "Content-Type":
+                    "application/json"
+                },
+
+                body: JSON.stringify({
+                  code,
+                  deviceId:
+                    getDeviceId()
+                })
+              }
+            );
+
+          const data =
+            await response.json();
+
+          if (!response.ok) {
+            throw new Error(
+              translateError(
+                data.error
+              )
+            );
+          }
+
+          userToken =
+            data.sessionToken;
+
+          localStorage.setItem(
+            "bf_user_token",
+            userToken
+          );
+
+          if (data.expiresAt) {
+            localStorage.setItem(
+              "bf_subscription_expires",
+              String(data.expiresAt)
+            );
+          }
+
+          localStorage.setItem(
+            "sharks_market",
+            currentMarket
+          );
+
+          showPage(
+            pages.app
+          );
+
+          await loadRecommendations(false);
+          startAutoRefresh();
+
+        } catch (error) {
+
+          showStatus(
+            $("loginStatus"),
+            error.message,
+            "error"
+          );
+
+        }
+
+      }
+    );
+
+
+  $("showPlansBtn")
+    .addEventListener(
+      "click",
+      async () => {
+
+        showPage(
+          pages.plans
+        );
+
+        await loadPaymentMethods();
+
+      }
+    );
+
+
+  $("backLoginBtn")
+    .addEventListener(
+      "click",
+      () => {
+        showPage(
+          pages.login
+        );
+      }
+    );
+
+
+  // ==========================================================
+  // PLANS
+  // ==========================================================
+
+  const plans = [
+    {
+      days: 2,
+      name: "يومين",
+      price: "السعر يحدده الإدارة"
+    },
+    {
+      days: 3,
+      name: "3 أيام",
+      price: "السعر يحدده الإدارة"
+    },
+    {
+      days: 5,
+      name: "5 أيام",
+      price: "السعر يحدده الإدارة"
+    },
+    {
+      days: 7,
+      name: "أسبوع",
+      price: "السعر يحدده الإدارة"
+    },
+    {
+      days: 10,
+      name: "10 أيام",
+      price: "السعر يحدده الإدارة"
+    },
+    {
+      days: 30,
+      name: "30 يوم",
+      price: "السعر يحدده الإدارة"
+    }
+  ];
+
+
+  function renderPlans() {
+
+    $("plansList").innerHTML =
+      plans.map(
+        plan => `
+          <div class="plan">
+
+            <div class="plan-name">
+              ${plan.name}
+            </div>
+
+            <div class="plan-days">
+              صلاحية ${plan.days} يوم
+            </div>
+
+            <div class="plan-price">
+              ${plan.price}
+            </div>
+
+            <button
+              class="btn btn-primary choose-plan"
+              data-days="${plan.days}"
+              type="button"
+            >
+              اختيار
+            </button>
+
+          </div>
+        `
+      ).join("");
+
+    document
+      .querySelectorAll(
+        ".choose-plan"
+      )
+      .forEach(
+        button => {
+
+          button.addEventListener(
+            "click",
+            () => {
+
+              $("paymentPlan")
+                .value =
+                button.dataset.days;
+
+              $("plansPage")
+                .scrollTo({
+                  top:
+                    document.body.scrollHeight,
+                  behavior:
+                    "smooth"
+                });
+
+            }
+          );
+
+        }
+      );
+  }
+
+
+  renderPlans();
+
+
+  // ==========================================================
+  // PAYMENT METHODS
+  // ==========================================================
+
+  async function loadPaymentMethods() {
+
+    try {
+
+      const response =
+        await fetch(
+          "/api/payment-methods"
+        );
+
+      const data =
+        await response.json();
+
+      paymentMethods =
+        data.methods || [];
+
+      renderPaymentMethods();
+
+    } catch (error) {
+
+      showStatus(
+        $("plansStatus"),
+        "تعذر تحميل طرق الدفع.",
+        "error"
+      );
+
+    }
+
+  }
+
+
+  function renderPaymentMethods() {
+
+    const select =
+      $("paymentMethod");
+
+    select.innerHTML = "";
+
+    if (!paymentMethods.length) {
+
+      select.innerHTML =
+        `<option value="">
+          لا توجد طرق دفع متاحة
+        </option>`;
+
+      $("paymentInstructions")
+        .textContent =
+        "لا توجد طرق دفع مفعلة حاليًا.";
+
+      return;
+    }
+
+    paymentMethods.forEach(
+      method => {
+
+        const option =
+          document.createElement(
+            "option"
+          );
+
+        option.value =
+          method.id;
+
+        option.textContent =
+          method.name;
+
+        select.appendChild(
+          option
+        );
+
+      }
+    );
+
+    updatePaymentInstructions();
+
+  }
+
+
+  function updatePaymentInstructions() {
+
+    const id =
+      $("paymentMethod")
+        .value;
+
+    const method =
+      paymentMethods.find(
+        x => x.id === id
+      );
+
+    if (!method) {
+
+      $("paymentInstructions")
+        .textContent =
+        "";
+
+      return;
+    }
+
+    const instructions =
+      method.instructions || "";
+
+    const details =
+      method.details || "";
+
+    const qrCode =
+      typeof method.qrCode === "string" &&
+      method.qrCode.startsWith("data:image/")
+        ? method.qrCode
+        : "";
+
+    $("paymentInstructions")
+      .innerHTML =
+        `<div>${escapeHtml(instructions).replace(/\\n/g, "<br>")}</div>` +
+        (
+          details
+            ? `<div style="margin-top:10px">${escapeHtml(details).replace(/\\n/g, "<br>")}</div>`
+            : ""
+        ) +
+        (
+          qrCode
+            ? `<img class="payment-qr" src="${escapeAttr(qrCode)}" alt="Binance Pay QR Code">`
+            : ""
+        );
+  }
+
+
+  $("paymentPlan")
+    .addEventListener(
+      "change",
+      () => {
+        $("customPlanDays")
+          .classList.toggle(
+            "hidden",
+            $("paymentPlan").value !== "custom"
+          );
+      }
+    );
+
+
+  $("paymentMethod")
+    .addEventListener(
+      "change",
+      updatePaymentInstructions
+    );
+
+
+  $("sendPaymentBtn")
+    .addEventListener(
+      "click",
+      async () => {
+
+        const plan =
+          $("paymentPlan").value;
+
+        const days =
+          plan === "custom"
+            ? Number($("customPlanDays").value)
+            : Number(plan);
+
+        if (!Number.isFinite(days) || days < 1 || days > 3650) {
+          showStatus(
+            $("plansStatus"),
+            "أدخل عدد أيام صحيح للمدة المخصصة.",
+            "error"
+          );
+          return;
+        }
+
+        const method =
+          $("paymentMethod").value;
+
+        const customerName =
+          $("payName")
+            .value
+            .trim();
+
+        const contact =
+          $("payContact")
+            .value
+            .trim();
+
+        const transactionId =
+          $("transactionId")
+            .value
+            .trim();
+
+        const note =
+          $("paymentNote")
+            .value
+            .trim();
+
+        try {
+
+          const response =
+            await fetch(
+              "/api/payment/request",
+              {
+                method: "POST",
+
+                headers: {
+                  "Content-Type":
+                    "application/json"
+                },
+
+                body:
+                  JSON.stringify({
+                    plan,
+                    days,
+                    method,
+                    customerName,
+                    contact,
+                    transactionId,
+                    note
+                  })
+              }
+            );
+
+          const data =
+            await response.json();
+
+          if (!response.ok) {
+
+            throw new Error(
+              translateError(
+                data.error
+              )
+            );
+
+          }
+
+          showStatus(
+            $("plansStatus"),
+            "تم إرسال طلب الدفع بنجاح. بعد مراجعة الدفع من الإدارة سيتم إصدار كود الاشتراك.",
+            "success"
+          );
+
+        } catch (error) {
+
+          showStatus(
+            $("plansStatus"),
+            error.message,
+            "error"
+          );
+
+        }
+
+      }
+    );
+
+
+  // ==========================================================
+  // ADMIN LOGIN
+  // ==========================================================
+
+  $("showAdminBtn")
+    .addEventListener(
+      "click",
+      () => {
+
+        showPage(
+          pages.adminLogin
+        );
+
+      }
+    );
+
+
+  $("adminBackBtn")
+    .addEventListener(
+      "click",
+      () => {
+
+        showPage(
+          pages.login
+        );
+
+      }
+    );
+
+
+  $("adminLoginBtn")
+    .addEventListener(
+      "click",
+      async () => {
+
+        const password =
+          $("adminPassword")
+            .value;
+
+        if (!password) {
+
+          showStatus(
+            $("adminLoginStatus"),
+            "أدخل كلمة مرور الإدارة.",
+            "error"
+          );
+
+          return;
+        }
+
+        try {
+
+          const response =
+            await fetch(
+              "/api/admin/login",
+              {
+                method: "POST",
+
+                headers: {
+                  "Content-Type":
+                    "application/json"
+                },
+
+                body:
+                  JSON.stringify({
+                    password
+                  })
+              }
+            );
+
+          const data =
+            await response.json();
+
+          if (!response.ok) {
+
+            throw new Error(
+              "كلمة المرور غير صحيحة."
+            );
+
+          }
+
+          adminToken =
+            data.token;
+
+          localStorage.setItem(
+            "bf_admin_token",
+            adminToken
+          );
+
+          showPage(
+            pages.admin
+          );
+
+          await loadAdmin();
+
+        } catch (error) {
+
+          showStatus(
+            $("adminLoginStatus"),
+            error.message,
+            "error"
+          );
+
+        }
+
+      }
+    );
+
+
+  // ==========================================================
+  // ADMIN API
+  // ==========================================================
+
+  async function adminFetch(
+    url,
+    options = {}
+  ) {
+
+    options.headers =
+      Object.assign(
+        {},
+        options.headers || {},
+        {
+          "x-admin-token":
+            adminToken,
+          "Content-Type":
+            "application/json"
+        }
+      );
+
+    const response =
+      await fetch(
+        url,
+        options
+      );
+
+    const data =
+      await response.json();
+
+    if (
+      response.status === 401
+    ) {
+
+      adminToken = "";
+
+      localStorage.removeItem(
+        "bf_admin_token"
+      );
+
+      showPage(
+        pages.adminLogin
+      );
+
+      throw new Error(
+        "انتهت جلسة الإدارة."
+      );
+    }
+
+    if (!response.ok) {
+
+      throw new Error(
+        translateError(
+          data.error
+        )
+      );
+
+    }
+
+    return data;
+  }
+
+
+  // ==========================================================
+  // ADMIN LOAD
+  // ==========================================================
+
+  async function loadAdmin() {
+
+    try {
+
+      await Promise.all([
+        loadAdminStats(),
+        loadCodes(),
+        loadPayments(),
+        loadAdminPaymentMethods(),
+        loadAdminSettings()
+      ]);
+
+    } catch (error) {
+
+      showStatus(
+        $("adminStatus"),
+        error.message,
+        "error"
+      );
+
+    }
+
+  }
+
+
+  $("adminRefreshBtn")
+    .addEventListener(
+      "click",
+      loadAdmin
+    );
+
+
+  $("adminLogoutBtn")
+    .addEventListener(
+      "click",
+      () => {
+
+        adminToken = "";
+
+        localStorage.removeItem(
+          "bf_admin_token"
+        );
+
+        showPage(
+          pages.login
+        );
+
+      }
+    );
+
+
+  // ==========================================================
+  // STATS
+  // ==========================================================
+
+  async function loadAdminStats() {
+
+    const data =
+      await adminFetch(
+        "/api/admin/stats"
+      );
+
+    $("adminStats")
+      .innerHTML = `
+
+        <div class="stat">
+          <div class="stat-label">
+            إجمالي الأكواد
+          </div>
+          <div class="stat-value">
+            ${data.codes.total}
+          </div>
+        </div>
+
+        <div class="stat">
+          <div class="stat-label">
+            الاشتراكات النشطة
+          </div>
+          <div class="stat-value">
+            ${data.codes.active}
+          </div>
+        </div>
+
+        <div class="stat">
+          <div class="stat-label">
+            الأكواد المنتهية
+          </div>
+          <div class="stat-value">
+            ${data.codes.expired}
+          </div>
+        </div>
+
+        <div class="stat">
+          <div class="stat-label">
+            طلبات الدفع المعلقة
+          </div>
+          <div class="stat-value">
+            ${data.payments.pending}
+          </div>
+        </div>
+
+        <div class="stat">
+          <div class="stat-label">
+            المدفوعات المقبولة
+          </div>
+          <div class="stat-value">
+            ${data.payments.approved}
+          </div>
+        </div>
+
+      `;
+
+  }
+
+
+  // ==========================================================
+  // CREATE CODE
+  // ==========================================================
+
+  $("newCodeDays")
+    .addEventListener(
+      "change",
+      () => {
+
+        $("customDaysField")
+          .classList.toggle(
+            "hidden",
+            $("newCodeDays").value !==
+              "custom"
+          );
+
+      }
+    );
+
+
+  $("createCodeBtn")
+    .addEventListener(
+      "click",
+      async () => {
+
+        let days =
+          $("newCodeDays").value;
+
+        if (days === "custom") {
+
+          days =
+            $("customDays").value;
+
+        }
+
+        days =
+          Number(days);
+
+        const name =
+          $("newCodeName")
+            .value
+            .trim();
+
+        const maxDevices =
+          Number(
+            $("maxDevices")
+              .value
+          );
+
+        if (
+          !Number.isFinite(days) ||
+          days < 1
+        ) {
+
+          showStatus(
+            $("adminStatus"),
+            "عدد الأيام غير صحيح.",
+            "error"
+          );
+
+          return;
+        }
+
+        try {
+
+          const data =
+            await adminFetch(
+              "/api/admin/codes",
+              {
+                method: "POST",
+
+                body:
+                  JSON.stringify({
+                    days,
+                    name,
+                    maxDevices
+                  })
+              }
+            );
+
+          const code =
+            data.code;
+
+          showStatus(
+            $("newCodeResult"),
+            `تم إنشاء الكود: ${code.code} — مدة ${code.durationDays} يوم`,
+            "success"
+          );
+
+          await loadCodes();
+          await loadAdminStats();
+
+        } catch (error) {
+
+          showStatus(
+            $("adminStatus"),
+            error.message,
+            "error"
+          );
+
+        }
+
+      }
+    );
+
+
+  // ==========================================================
+  // CODES
+  // ==========================================================
+
+  async function loadCodes() {
+
+    const data =
+      await adminFetch(
+        "/api/admin/codes"
+      );
+
+    adminCodes =
+      data.codes || [];
+
+    renderCodes();
+
+  }
+
+
+  function statusPill(
+    status
+  ) {
+
+    if (status === "active") {
+      return `<span class="pill pill-active">نشط</span>`;
+    }
+
+    if (status === "expired") {
+      return `<span class="pill pill-expired">منتهي</span>`;
+    }
+
+    if (status === "revoked") {
+      return `<span class="pill pill-revoked">ملغي</span>`;
+    }
+
+    return `<span class="pill">${status}</span>`;
+  }
+
+
+  function renderCodes() {
+
+    const tbody =
+      $("codesTable");
+
+    if (!adminCodes.length) {
+
+      tbody.innerHTML =
+        `<tr>
+          <td colspan="7">
+            لا توجد أكواد.
+          </td>
+        </tr>`;
+
+      return;
+    }
+
+    tbody.innerHTML =
+      adminCodes.map(
+        item => `
+
+          <tr>
+
+            <td>
+              <strong>
+                ${escapeHtml(
+                  item.code
+                )}
+              </strong>
+            </td>
+
+            <td>
+              ${escapeHtml(
+                item.name || "-"
+              )}
+            </td>
+
+            <td>
+              ${item.durationDays} يوم
+            </td>
+
+            <td>
+              ${statusPill(
+                item.status
+              )}
+            </td>
+
+            <td>
+              ${
+                item.expiresAt
+                  ? formatDate(
+                      item.expiresAt
+                    )
+                  : "عند التفعيل"
+              }
+            </td>
+
+            <td>
+              ${
+                item.devices
+                  ? item.devices.length
+                  : 0
+              }
+              /
+              ${item.maxDevices}
+            </td>
+
+            <td>
+
+              <div class="admin-actions">
+
+                <button
+                  class="btn btn-primary edit-code"
+                  data-code="${escapeAttr(
+                    item.code
+                  )}"
+                  type="button"
+                >
+                  تعديل
+                </button>
+
+                <button
+                  class="btn btn-danger revoke-code"
+                  data-code="${escapeAttr(
+                    item.code
+                  )}"
+                  type="button"
+                >
+                  إلغاء
+                </button>
+
+                <button
+                  class="btn btn-warning extend-code"
+                  data-code="${escapeAttr(
+                    item.code
+                  )}"
+                  type="button"
+                >
+                  تمديد
+                </button>
+
+              </div>
+
+            </td>
+
+          </tr>
+        `
+      ).join("");
+
+
+    document
+      .querySelectorAll(
+        ".revoke-code"
+      )
+      .forEach(
+        button => {
+
+          button.addEventListener(
+            "click",
+            async () => {
+
+              const code =
+                button.dataset.code;
+
+              if (
+                !confirm(
+                  `هل تريد إلغاء الكود ${code}؟`
+                )
+              ) {
+                return;
+              }
+
+              await adminFetch(
+                "/api/admin/codes/revoke",
+                {
+                  method: "POST",
+
+                  body:
+                    JSON.stringify({
+                      code
+                    })
+                }
+              );
+
+              await loadCodes();
+              await loadAdminStats();
+
+            }
+          );
+
+        }
+      );
+
+
+    document
+      .querySelectorAll(
+        ".extend-code"
+      )
+      .forEach(
+        button => {
+
+          button.addEventListener(
+            "click",
+            async () => {
+
+              const code =
+                button.dataset.code;
+
+              const days =
+                Number(
+                  prompt(
+                    "كم يوم تريد إضافة؟",
+                    "7"
+                  )
+                );
+
+              if (
+                !Number.isFinite(days) ||
+                days < 1
+              ) {
+                return;
+              }
+
+              await adminFetch(
+                "/api/admin/codes/extend",
+                {
+                  method: "POST",
+
+                  body:
+                    JSON.stringify({
+                      code,
+                      days
+                    })
+                }
+              );
+
+              await loadCodes();
+              await loadAdminStats();
+
+            }
+          );
+
+        }
+      );
+
+  }
+
+
+  // ==========================================================
+  // PAYMENTS
+  // ==========================================================
+
+  async function loadPayments() {
+
+    const data =
+      await adminFetch(
+        "/api/admin/payments"
+      );
+
+    adminPayments =
+      data.payments || [];
+
+    renderPayments();
+
+  }
+
+
+  function paymentStatus(
+    status
+  ) {
+
+    if (status === "pending") {
+      return `<span class="pill pill-pending">معلق</span>`;
+    }
+
+    if (status === "approved") {
+      return `<span class="pill pill-active">مقبول</span>`;
+    }
+
+    if (status === "rejected") {
+      return `<span class="pill pill-revoked">مرفوض</span>`;
+    }
+
+    return status;
+
+  }
+
+
+  function renderPayments() {
+
+    const tbody =
+      $("paymentsTable");
+
+    if (!adminPayments.length) {
+
+      tbody.innerHTML =
+        `<tr>
+          <td colspan="7">
+            لا توجد طلبات دفع.
+          </td>
+        </tr>`;
+
+      return;
+    }
+
+    tbody.innerHTML =
+      adminPayments.map(
+        item => `
+
+          <tr>
+
+            <td>
+              ${escapeHtml(
+                item.id
+              )}
+            </td>
+
+            <td>
+              ${escapeHtml(
+                item.customerName ||
+                item.contact ||
+                "-"
+              )}
+            </td>
+
+            <td>
+              ${escapeHtml(
+                String(item.plan)
+              )} يوم
+            </td>
+
+            <td>
+              ${escapeHtml(
+                item.method
+              )}
+            </td>
+
+            <td>
+              ${escapeHtml(
+                item.transactionId ||
+                "-"
+              )}
+            </td>
+
+            <td>
+              ${paymentStatus(
+                item.status
+              )}
+            </td>
+
+            <td>
+
+              <div class="admin-actions">
+
+                ${
+                  item.status === "pending"
+                    ? `
+                      <button
+                        class="btn btn-success approve-payment"
+                        data-id="${escapeAttr(
+                          item.id
+                        )}"
+                        type="button"
+                      >
+                        قبول وإصدار كود
+                      </button>
+
+                      <button
+                        class="btn btn-danger reject-payment"
+                        data-id="${escapeAttr(
+                          item.id
+                        )}"
+                        type="button"
+                      >
+                        رفض
+                      </button>
+                    `
+                    : "-"
+                }
+
+              </div>
+
+            </td>
+
+          </tr>
+
+        `
+      ).join("");
+
+
+    document
+      .querySelectorAll(
+        ".approve-payment"
+      )
+      .forEach(
+        button => {
+
+          button.addEventListener(
+            "click",
+            async () => {
+
+              const id =
+                button.dataset.id;
+
+              const payment =
+                adminPayments.find(
+                  x => x.id === id
+                );
+
+              let days =
+                Number(
+                  prompt(
+                    "عدد أيام الاشتراك؟",
+                    payment
+                      ? payment.plan
+                      : "7"
+                  )
+                );
+
+              if (
+                !Number.isFinite(days) ||
+                days < 1
+              ) {
+                return;
+              }
+
+              const data =
+                await adminFetch(
+                  "/api/admin/payments/approve",
+                  {
+                    method: "POST",
+
+                    body:
+                      JSON.stringify({
+                        paymentId: id,
+                        days
+                      })
+                  }
+                );
+
+              if (
+                data.code
+              ) {
+
+                alert(
+                  "تم قبول الدفع.\n\n" +
+                  "كود العميل:\n" +
+                  data.code.code
+                );
+
+              }
+
+              await loadPayments();
+              await loadCodes();
+              await loadAdminStats();
+
+            }
+          );
+
+        }
+      );
+
+
+    document
+      .querySelectorAll(
+        ".reject-payment"
+      )
+      .forEach(
+        button => {
+
+          button.addEventListener(
+            "click",
+            async () => {
+
+              const id =
+                button.dataset.id;
+
+              if (
+                !confirm(
+                  "رفض طلب الدفع؟"
+                )
+              ) {
+                return;
+              }
+
+              await adminFetch(
+                "/api/admin/payments/reject",
+                {
+                  method: "POST",
+
+                  body:
+                    JSON.stringify({
+                      paymentId: id
+                    })
+                }
+              );
+
+              await loadPayments();
+              await loadAdminStats();
+
+            }
+          );
+
+        }
+      );
+
+  }
+
+
+  // ==========================================================
+  // ADMIN PAYMENT METHODS
+  // ==========================================================
+
+  async function loadAdminPaymentMethods() {
+
+    const data =
+      await adminFetch(
+        "/api/admin/payment-methods"
+      );
+
+    renderAdminPaymentMethods(
+      data.methods || []
+    );
+
+  }
+
+
+  function renderAdminPaymentMethods(
+    methods
+  ) {
+
+    $("paymentMethodsAdmin")
+      .innerHTML =
+      methods.map(
+        (method, index) => `
+
+          <div
+            class="panel"
+            style="margin-bottom:10px"
+          >
+
+            <div class="settings-grid">
+
+              <div class="field">
+
+                <label>
+                  اسم الطريقة
+                </label>
+
+                <input
+                  class="input pm-name"
+                  data-index="${index}"
+                  value="${escapeAttr(
+                    method.name
+                  )}"
+                >
+
+              </div>
+
+              <div class="field">
+
+                <label>
+                  التفاصيل
+                </label>
+
+                <textarea
+                  class="textarea pm-details"
+                  data-index="${index}"
+                >${escapeHtml(
+                  method.details || ""
+                )}</textarea>
+
+              </div>
+
+              <div class="field">
+
+                <label>
+                  تعليمات الدفع
+                </label>
+
+                <textarea
+                  class="textarea pm-instructions"
+                  data-index="${index}"
+                >${escapeHtml(
+                  method.instructions || ""
+                )}</textarea>
+
+              </div>
+
+              <div class="field">
+
+                <label>
+                  QR Code للدفع
+                </label>
+
+                <input
+                  type="file"
+                  accept="image/png,image/jpeg,image/webp"
+                  class="input pm-qr-file"
+                  data-index="${index}"
+                >
+
+                ${
+                  method.qrCode
+                    ? `
+                      <div class="qr-preview">
+                        <div style="margin-bottom:8px;color:#b8c7d9">
+                          QR الحالي
+                        </div>
+                        <img
+                          src="${escapeAttr(method.qrCode)}"
+                          alt="QR Code"
+                        >
+                      </div>
+                    `
+                    : `
+                      <div style="margin-top:8px;color:#91a4bd;font-size:13px">
+                        لم يتم رفع QR لهذا الحساب.
+                      </div>
+                    `
+                }
+
+              </div>
+
+              <div class="field">
+
+                <label>
+                  الحالة
+                </label>
+
+                <label
+                  style="display:flex;gap:10px;align-items:center"
+                >
+
+                  <input
+                    type="checkbox"
+                    class="pm-enabled"
+                    data-index="${index}"
+                    ${
+                      method.enabled
+                        ? "checked"
+                        : ""
+                    }
+                  >
+
+                  مفعلة
+
+                </label>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        `
+      ).join("");
+
+  }
+
+
+  $("savePaymentMethodsBtn")
+    .addEventListener(
+      "click",
+      async () => {
+
+        const names =
+          document.querySelectorAll(
+            ".pm-name"
+          );
+
+        const details =
+          document.querySelectorAll(
+            ".pm-details"
+          );
+
+        const instructions =
+          document.querySelectorAll(
+            ".pm-instructions"
+          );
+
+        const enabled =
+          document.querySelectorAll(
+            ".pm-enabled"
+          );
+
+        const qrFiles =
+          document.querySelectorAll(
+            ".pm-qr-file"
+          );
+
+        const methods =
+          [];
+
+        for (
+          let i = 0;
+          i < names.length;
+          i++
+        ) {
+
+          let qrCode =
+            paymentMethods[i]
+              ? (paymentMethods[i].qrCode || "")
+              : "";
+
+          const file =
+            qrFiles[i] &&
+            qrFiles[i].files &&
+            qrFiles[i].files[0];
+
+          if (file) {
+
+            if (!file.type.startsWith("image/")) {
+              showStatus(
+                $("adminStatus"),
+                "ملف QR يجب أن يكون صورة.",
+                "error"
+              );
+              return;
+            }
+
+            if (file.size > 700 * 1024) {
+              showStatus(
+                $("adminStatus"),
+                "صورة QR كبيرة جدًا. استخدم صورة أقل من 700KB.",
+                "error"
+              );
+              return;
+            }
+
+            qrCode =
+              await new Promise(
+                (resolve, reject) => {
+
+                  const reader =
+                    new FileReader();
+
+                  reader.onload =
+                    () => resolve(
+                      String(reader.result || "")
+                    );
+
+                  reader.onerror =
+                    () => reject(
+                      new Error("تعذر قراءة صورة QR.")
+                    );
+
+                  reader.readAsDataURL(file);
+
+                }
+              );
+
+          }
+
+          methods.push({
+            id:
+              paymentMethods[i]
+                ? paymentMethods[i].id
+                : `method-${i + 1}`,
+
+            name:
+              names[i].value,
+
+            details:
+              details[i].value,
+
+            instructions:
+              instructions[i].value,
+
+            qrCode,
+
+            enabled:
+              enabled[i].checked
+          });
+
+        }
+
+        try {
+
+          await adminFetch(
+            "/api/admin/payment-methods",
+            {
+              method: "POST",
+
+              body:
+                JSON.stringify({
+                  methods
+                })
+            }
+          );
+
+          showStatus(
+            $("adminStatus"),
+            "تم حفظ طرق الدفع.",
+            "success"
+          );
+
+        } catch (error) {
+
+          showStatus(
+            $("adminStatus"),
+            error.message,
+            "error"
+          );
+
+        }
+
+      }
+    );
+
+
+  // ==========================================================
+  // ADMIN SETTINGS
+  // ==========================================================
+
+  async function loadAdminSettings() {
+
+    const data =
+      await adminFetch(
+        "/api/admin/settings"
+      );
+
+    const s =
+      data.settings;
+
+    $("sCapital").value =
+      s.capital;
+
+    $("sRisk").value =
+      s.riskPercent;
+
+    $("sLeverage").value =
+      s.leverage;
+
+    $("sMaxPositions").value =
+      s.maxPositions;
+
+    $("sMinScore").value =
+      s.minScore;
+
+    $("sRunner").value =
+      s.runnerPercent;
+
+    $("sTP1").value =
+      s.tp1Percent;
+
+    $("sTP2").value =
+      s.tp2Percent;
+
+    $("sTP3").value =
+      s.tp3Percent;
+
+    $("sTP4").value =
+      s.tp4Percent;
+
+    $("sTP5").value =
+      s.tp5Percent;
+
+    $("sInterval").value =
+      s.scanIntervalSeconds;
+
+  }
+
+
+  $("saveSettingsBtn")
+    .addEventListener(
+      "click",
+      async () => {
+
+        const settings = {
+
+          capital:
+            Number(
+              $("sCapital").value
+            ),
+
+          riskPercent:
+            Number(
+              $("sRisk").value
+            ),
+
+          leverage:
+            Number(
+              $("sLeverage").value
+            ),
+
+          maxPositions:
+            Number(
+              $("sMaxPositions").value
+            ),
+
+          minScore:
+            Number(
+              $("sMinScore").value
+            ),
+
+          runnerPercent:
+            Number(
+              $("sRunner").value
+            ),
+
+          tp1Percent:
+            Number(
+              $("sTP1").value
+            ),
+
+          tp2Percent:
+            Number(
+              $("sTP2").value
+            ),
+
+          tp3Percent:
+            Number(
+              $("sTP3").value
+            ),
+
+          tp4Percent:
+            Number(
+              $("sTP4").value
+            ),
+
+          tp5Percent:
+            Number(
+              $("sTP5").value
+            ),
+
+          scanIntervalSeconds:
+            Number(
+              $("sInterval").value
+            )
+
+        };
+
+        try {
+
+          await adminFetch(
+            "/api/admin/settings",
+            {
+              method: "POST",
+
+              body:
+                JSON.stringify(
+                  settings
+                )
+            }
+          );
+
+          showStatus(
+            $("adminStatus"),
+            "تم حفظ إعدادات التحليل.",
+            "success"
+          );
+
+        } catch (error) {
+
+          showStatus(
+            $("adminStatus"),
+            error.message,
+            "error"
+          );
+
+        }
+
+      }
+    );
+
+
+  // ==========================================================
+  // MAIN APP
+  // ==========================================================
+
+  async function loadRecommendations(silent = false) {
+
+    if (refreshInProgress) return;
+    refreshInProgress = true;
+
+    try {
+
+    if (currentMarket === "SPOT") {
+      await loadSpotRecommendations();
+      return;
+    }
+
+    await loadFuturesRecommendations(silent);
+
+    } finally {
+      refreshInProgress = false;
+    }
+
+  }
+
+
+  async function loadFuturesRecommendations(silent = false) {
+
+    const status =
+      $("marketStatus");
+
+    showStatus(
+      status,
+      "جاري تحميل أحدث تحليلات Futures..."
+    );
+
+    try {
+
+      const response =
+        await fetch(
+          "/api/recommendations?_ts=" + Date.now(),
+          {
+            cache: "no-store",
+            headers: {
+              "x-user-token":
+                userToken
+            }
+          }
+        );
+
+      const data =
+        await response.json();
+
+      if (
+        response.status === 401 ||
+        response.status === 403
+      ) {
+
+        logoutUser();
+
+        throw new Error(
+          translateError(
+            data.error
+          )
+        );
+
+      }
+
+      if (!response.ok) {
+
+        throw new Error(
+          translateError(
+            data.error
+          )
+        );
+
+      }
+
+      recommendations =
+        data.recommendations || [];
+
+      renderRecommendations();
+
+      updateSubscription();
+
+      showStatus(
+        status,
+        `Futures — آخر تحديث: ${
+          formatDate(data.lastScanAt)
+        } — عدد التوصيات: ${
+          recommendations.length
+        }`,
+        "success"
+      );
+
+    } catch (error) {
+
+      showStatus(
+        status,
+        error.message,
+        "error"
+      );
+
+    }
+
+  }
+
+
+  async function loadSpotRecommendations(silent = false) {
+
+    const status = $("marketStatus");
+
+    showStatus(
+      status,
+      "جاري تحميل أحدث تحليلات Spot..."
+    );
+
+    try {
+
+      const response =
+        await fetch(
+          "/api/recommendations?market=spot&_ts=" + Date.now(),
+          {
+            cache: "no-store",
+            headers: {
+              "x-user-token": userToken
+            }
+          }
+        );
+
+      const data = await response.json();
+
+      if (response.status === 401 || response.status === 403) {
+        logoutUser();
+        throw new Error(translateError(data.error));
+      }
+
+      if (!response.ok) {
+        throw new Error(translateError(data.error));
+      }
+
+      recommendations = data.recommendations || [];
+
+      renderRecommendations();
+      updateSubscription();
+
+      showStatus(
+        status,
+        `Spot — آخر تحديث: ${formatDate(data.lastScanAt)} — عدد التوصيات: ${recommendations.length}`,
+        "success"
+      );
+
+    } catch (error) {
+
+      recommendations = [];
+      $("recommendations").innerHTML = `
+        <div class="panel">
+          <div class="panel-title">تعذر تحميل بيانات Spot</div>
+          <div class="muted" style="line-height:1.8">
+            ${escapeHtml(error.message || "حدث خطأ غير معروف")}
+          </div>
+        </div>
+      `;
+
+      showStatus(
+        status,
+        error.message,
+        "error"
+      );
+
+    }
+
+  }
+
+
+  function renderRecommendations() {
+
+    let list =
+      recommendations;
+
+    if (
+      currentFilter !== "ALL"
+    ) {
+
+      list =
+        list.filter(
+          item =>
+            item.side ===
+            currentFilter
+        );
+
+    }
+
+    const root =
+      $("recommendations");
+
+    if (!list.length) {
+
+      root.innerHTML =
+        `
+          <div class="panel">
+            لا توجد توصيات مطابقة حاليًا.
+          </div>
+        `;
+
+      return;
+    }
+
+    root.innerHTML =
+      list.map(
+        rec =>
+          recommendationHTML(
+            rec
+          )
+      ).join("");
+
+  }
+
+
+  function recommendationHTML(
+    rec
+  ) {
+
+    const isSpot =
+      currentMarket === "SPOT" ||
+      rec.market === "spot";
+
+    const positiveSide =
+      isSpot
+        ? rec.side === "BUY"
+        : rec.side === "LONG";
+
+    const sideClass =
+      positiveSide
+        ? "side-long"
+        : "side-short";
+
+    const sideText =
+      isSpot
+        ? (positiveSide ? "BUY 🟢" : "SELL 🔴")
+        : (positiveSide ? "LONG 🟢" : "SHORT 🔴");
+
+    const reasons =
+      Array.isArray(
+        rec.reasons
+      )
+        ? rec.reasons
+        : [];
+
+    return `
+
+      <article class="recommendation">
+
+        <div class="rec-head">
+
+          <div>
+
+            <div class="symbol">
+              ${escapeHtml(
+                rec.symbol
+              )}
+            </div>
+
+            <div
+              class="${sideClass}"
+              style="margin-top:7px;font-weight:800"
+            >
+              ${sideText}
+              •
+              ${escapeHtml(
+                (
+                  rec.timeframes || []
+                ).join(" + ")
+              )}
+            </div>
+
+          </div>
+
+          <div class="score-box">
+
+            <div class="score">
+              ${Number(
+                rec.score || 0
+              )}
+            </div>
+
+            <div class="score-label">
+              قوة فنية
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="badges">
+
+          <div class="badge">
+            توافق:
+            ${rec.agreement || 0}
+            فواصل
+          </div>
+
+          <div class="badge">
+            24h:
+            ${percent(
+              rec.change24h
+            )}
+          </div>
+
+          <div class="badge">
+            Volume:
+            ${formatVolume(
+              rec.volume
+            )}
+          </div>
+
+          <div class="badge">
+            ${isSpot ? "السوق: Spot" : `رافعة: ${rec.leverage || 5}x`}
+          </div>
+
+          <div class="badge">
+            مخاطرة:
+            ${percent(
+              rec.riskPercent
+            )}
+          </div>
+
+          <div class="badge">
+            المخاطرة المالية: ${money(rec.riskMoney)}
+          </div>
+
+        </div>
+
+
+        <div class="price-grid">
+
+          ${priceBox(
+            "Entry",
+            rec.entry
+          )}
+
+          ${priceBox(
+            "SL",
+            rec.sl
+          )}
+
+          ${priceBox(
+            "TP1",
+            rec.tp1
+          )}
+
+          ${priceBox(
+            "TP2",
+            rec.tp2
+          )}
+
+          ${priceBox(
+            "TP3",
+            rec.tp3
+          )}
+
+          ${priceBox(
+            "TP4",
+            rec.tp4
+          )}
+
+          ${priceBox(
+            "TP5",
+            rec.tp5
+          )}
+
+          ${priceBox(
+            "Runner",
+            (rec.runner || 20) +
+              "%"
+          )}
+
+        </div>
+
+
+        <div class="rec-line">
+
+          رأس المال:
+          <strong>
+            $
+            ${money(
+              rec.capital
+            )}
+          </strong>
+
+          —
+          المخاطرة:
+
+          <strong>
+            $
+            ${money(
+              rec.riskMoney
+            )}
+          </strong>
+
+        </div>
+
+
+        <div class="rec-line">
+
+          حجم الصفقة الاسمي المقترح:
+
+          <strong>
+            $
+            ${money(
+              rec.positionNotional
+            )}
+          </strong>
+
+        </div>
+
+
+        ${
+          reasons.length
+            ? `
+              <div class="reasons">
+
+                <strong>
+                  أسباب الإشارة:
+                </strong>
+
+                ${reasons
+                  .map(
+                    reason =>
+                      `
+                        <div class="reason">
+                          •
+                          ${escapeHtml(
+                            reason
+                          )}
+                        </div>
+                      `
+                  )
+                  .join("")}
+
+              </div>
+            `
+            : ""
+        }
+
+      </article>
+
+    `;
+
+  }
+
+
+  function priceBox(
+    label,
+    value
+  ) {
+
+    return `
+
+      <div class="price-box">
+
+        <span>
+          ${label}
+        </span>
+
+        <strong>
+          ${
+            typeof value ===
+            "number"
+              ? money(value)
+              : escapeHtml(
+                  String(
+                    value ?? "-"
+                  )
+                )
+          }
+        </strong>
+
+      </div>
+
+    `;
+
+  }
+
+
+  function formatVolume(
+    value
+  ) {
+
+    const n =
+      Number(value);
+
+    if (
+      !Number.isFinite(n)
+    ) {
+      return "-";
+    }
+
+    if (n >= 1e9) {
+      return (
+        n / 1e9
+      ).toFixed(2) +
+        "B";
+    }
+
+    if (n >= 1e6) {
+      return (
+        n / 1e6
+      ).toFixed(2) +
+        "M";
+    }
+
+    if (n >= 1e3) {
+      return (
+        n / 1e3
+      ).toFixed(2) +
+        "K";
+    }
+
+    return n.toFixed(0);
+
+  }
+
+
+  // ==========================================================
+  // COIN SEARCH
+  // ==========================================================
+
+  async function searchCoin() {
+
+    const input = $("coinSearchInput");
+
+    const query =
+      String(input?.value || "")
+        .trim()
+        .toUpperCase();
+
+    if (!query) {
+      showStatus(
+        $("marketStatus"),
+        "اكتب اسم العملة أولًا.",
+        "error"
+      );
+      return;
+    }
+
+    currentSearch = query;
+
+    showStatus(
+      $("marketStatus"),
+      `جاري البحث عن ${query} على OKX...`
+    );
+
+    try {
+
+      const market =
+        currentMarket === "SPOT"
+          ? "spot"
+          : "futures";
+
+      const response =
+        await fetch(
+          `/api/recommendations?market=${market}&symbol=${encodeURIComponent(query)}&_ts=${Date.now()}`,
+          {
+            cache: "no-store",
+            headers: {
+              "x-user-token":
+                userToken
+            }
+          }
+        );
+
+      const data =
+        await response.json();
+
+      if (
+        response.status === 401 ||
+        response.status === 403
+      ) {
+
+        logoutUser();
+
+        throw new Error(
+          translateError(
+            data.error
+          )
+        );
+
+      }
+
+      if (!response.ok) {
+        throw new Error(
+          translateError(
+            data.error
+          )
+        );
+      }
+
+      recommendations =
+        data.recommendations || [];
+
+      // Search result should be shown regardless of the normal
+      // ALL/LONG/SHORT filter.
+      currentFilter = "ALL";
+
+      document
+        .querySelectorAll(".filter")
+        .forEach(btn => {
+          btn.classList.toggle(
+            "active",
+            btn.dataset.filter === "ALL"
+          );
+        });
+
+      renderRecommendations();
+
+      if (!recommendations.length) {
+
+        showStatus(
+          $("marketStatus"),
+          `${query}: لا توجد إشارة فنية مطابقة حاليًا.`,
+          "warning"
+        );
+
+      } else {
+
+        showStatus(
+          $("marketStatus"),
+          `${query} — تم العثور على تحليل OKX مباشر.`,
+          "success"
+        );
+
+      }
+
+      updateSubscription();
+
+    } catch (error) {
+
+      recommendations = [];
+
+      $("recommendations").innerHTML = `
+        <div class="panel">
+          <div class="panel-title">نتيجة البحث</div>
+          <div class="muted" style="line-height:1.8">
+            ${escapeHtml(
+              error.message ||
+              "تعذر تنفيذ البحث."
+            )}
+          </div>
+        </div>
+      `;
+
+      showStatus(
+        $("marketStatus"),
+        error.message,
+        "error"
+      );
+
+    }
+  }
+
+  function clearCoinSearch() {
+
+    currentSearch = "";
+
+    const input =
+      $("coinSearchInput");
+
+    if (input) {
+      input.value = "";
+    }
+
+    currentFilter = "ALL";
+
+    document
+      .querySelectorAll(".filter")
+      .forEach(btn => {
+        btn.classList.toggle(
+          "active",
+          btn.dataset.filter === "ALL"
+        );
+      });
+
+    loadRecommendations();
+
+  }
+
+  // ==========================================================
+  // MARKET SWITCH
+  // ==========================================================
+
+  function setMarket(market) {
+
+    currentSearch = "";
+
+    const searchInput =
+      $("coinSearchInput");
+
+    if (searchInput) {
+      searchInput.value = "";
+    }
+
+    currentMarket =
+      market === "SPOT"
+        ? "SPOT"
+        : "FUTURES";
+
+    localStorage.setItem(
+      "sharks_market",
+      currentMarket
+    );
+
+    const futuresBtn = $("marketFuturesBtn");
+    const spotBtn = $("marketSpotBtn");
+
+    futuresBtn.classList.toggle(
+      "active",
+      currentMarket === "FUTURES"
+    );
+
+    spotBtn.classList.toggle(
+      "active",
+      currentMarket === "SPOT"
+    );
+
+    $("marketDescription").textContent =
+      currentMarket === "FUTURES"
+        ? "وضع Futures — توصيات عقود Futures فقط."
+        : "وضع Spot — توصيات شراء وبيع Spot بدون رافعة.";
+
+    if (userToken) {
+      loadRecommendations();
+    }
+
+  }
+
+
+  $("coinSearchBtn")
+    .addEventListener(
+      "click",
+      searchCoin
+    );
+
+  $("coinClearSearchBtn")
+    .addEventListener(
+      "click",
+      clearCoinSearch
+    );
+
+  $("coinSearchInput")
+    .addEventListener(
+      "keydown",
+      event => {
+        if (event.key === "Enter") {
+          searchCoin();
+        }
+      }
+    );
+
+
+  $("marketFuturesBtn")
+    .addEventListener(
+      "click",
+      () => setMarket("FUTURES")
+    );
+
+  $("marketSpotBtn")
+    .addEventListener(
+      "click",
+      () => setMarket("SPOT")
+    );
+
+
+  // ==========================================================
+  // FILTER BUTTONS
+  // ==========================================================
+
+  document
+    .querySelectorAll(
+      ".filter"
+    )
+    .forEach(
+      button => {
+
+        button.addEventListener(
+          "click",
+          () => {
+
+            currentFilter =
+              button.dataset.filter;
+
+            document
+              .querySelectorAll(
+                ".filter"
+              )
+              .forEach(
+                x =>
+                  x.classList.remove(
+                    "active"
+                  )
+              );
+
+            button.classList.add(
+              "active"
+            );
+
+            renderRecommendations();
+
+          }
+        );
+
+      }
+    );
+
+
+  $("refreshBtn")
+    .addEventListener(
+      "click",
+      async () => {
+
+        const button = $("refreshBtn");
+
+        if (button.disabled) return;
+
+        button.disabled = true;
+        const oldText = button.textContent;
+        button.textContent = "جاري التحديث...";
+
+        try {
+          await loadRecommendations(false);
+        } finally {
+          button.disabled = false;
+          button.textContent = oldText;
+        }
+
+      }
+    );
+
+
+  $("logoutBtn")
+    .addEventListener(
+      "click",
+      logoutUser
+    );
+
+
+  $("renewBtn")
+    .addEventListener(
+      "click",
+      async () => {
+
+        showPage(
+          pages.plans
+        );
+
+        await loadPaymentMethods();
+
+      }
+    );
+
+
+  function logoutUser() {
+
+    stopAutoRefresh();
+    userToken = "";
+
+    localStorage.removeItem(
+      "bf_user_token"
+    );
+
+    localStorage.removeItem(
+      "bf_subscription_expires"
+    );
+
+    showPage(
+      pages.login
+    );
+
+  }
+
+
+  // ==========================================================
+  // SUBSCRIPTION DISPLAY
+  // ==========================================================
+
+  async function updateSubscription() {
+
+    // The current backend doesn't have a dedicated
+    // session-info endpoint, so we display the session
+    // validity through the login response when available.
+
+    const value =
+      localStorage.getItem(
+        "bf_subscription_expires"
+      );
+
+    if (value) {
+
+      $("subscriptionStatus")
+        .textContent =
+        remainingText(
+          Number(value)
+        );
+
+      return;
+
+    }
+
+    $("subscriptionStatus")
+      .textContent =
+      "اشتراك نشط";
+
+  }
+
+
+  // ==========================================================
+  // SAVE EXPIRY FROM LOGIN
+  // ==========================================================
+
+  // Wrap the original login flow by reading the token
+  // response's expiry and saving it locally.
+
+  const originalLoginButton =
+    $("loginBtn");
+
+
+  // We cannot replace the already registered handler
+  // cleanly, so this listener only captures future
+  // subscription information when available.
+  //
+  // The server remains authoritative.
+
+
+  // ==========================================================
+  // ESCAPE
+  // ==========================================================
+
+  function escapeHtml(
+    value
+  ) {
+
+    return String(
+      value ?? ""
+    )
+      .replace(
+        /&/g,
+        "&amp;"
+      )
+      .replace(
+        /</g,
+        "&lt;"
+      )
+      .replace(
+        />/g,
+        "&gt;"
+      )
+      .replace(
+        /"/g,
+        "&quot;"
+      )
+      .replace(
+        /'/g,
+        "&#039;"
+      );
+
+  }
+
+
+  function escapeAttr(
+    value
+  ) {
+
+    return escapeHtml(
+      value
+    );
+
+  }
+
+
+  // ==========================================================
+  // ERROR TRANSLATION
+  // ==========================================================
+
+  function translateError(
+    error
+  ) {
+
+    const map = {
+
+      INVALID_CODE:
+        "كود الاشتراك غير صحيح.",
+
+      CODE_REVOKED:
+        "هذا الكود تم إلغاؤه.",
+
+      CODE_EXPIRED:
+        "هذا الاشتراك منتهي.",
+
+      DEVICE_LIMIT_REACHED:
+        "تم الوصول إلى الحد الأقصى للأجهزة.",
+
+      LOGIN_REQUIRED:
+        "يجب تسجيل الدخول.",
+
+      INVALID_SESSION:
+        "جلسة الدخول غير صالحة.",
+
+      SUBSCRIPTION_EXPIRED:
+        "انتهت صلاحية الاشتراك.",
+
+      ADMIN_AUTH_REQUIRED:
+        "يجب تسجيل الدخول للإدارة.",
+
+      ADMIN_SESSION_EXPIRED:
+        "انتهت جلسة الإدارة.",
+
+      INVALID_ADMIN_PASSWORD:
+        "كلمة مرور الإدارة غير صحيحة.",
+
+      CODE_NOT_FOUND:
+        "الكود غير موجود.",
+
+      PAYMENT_NOT_FOUND:
+        "طلب الدفع غير موجود.",
+
+      PLAN_AND_METHOD_REQUIRED:
+        "اختر الاشتراك وطريقة الدفع."
+
+    };
+
+    return (
+      map[error] ||
+      error ||
+      "حدث خطأ غير معروف."
+    );
+
+  }
+
+
+  // ==========================================================
+  // INITIAL STATE
+  // ==========================================================
+
+  setMarket(currentMarket);
+
+  if (adminToken) {
+
+    showPage(
+      pages.admin
+    );
+
+    loadAdmin()
+      .catch(
+        () => {
+          showPage(
+            pages.adminLogin
+          );
+        }
+      );
+
+  } else if (userToken) {
+
+    showPage(
+      pages.app
+    );
+
+    loadRecommendations(false);
+    startAutoRefresh();
+
+  } else {
+
+    stopAutoRefresh();
+
+    showPage(
+      pages.login
+    );
+
+  }
+
+})();
+
+
+  // ==========================================================
+  // SHARKS UI HARDENING: ENTER / REFRESH / CODE EDIT
+  // ==========================================================
+
+  function openCodeEditor(code) {
+    const item = adminCodes.find(x => String(x.code) === String(code));
+    if (!item) return;
+    $("editCode").value = item.code || "";
+    $("editName").value = item.name || "";
+    $("editDays").value = Number(item.durationDays || 7);
+    $("editMaxDevices").value = Number(item.maxDevices || 1);
+    $("editCodeStatus").classList.add("hidden");
+    $("codeEditModal").classList.remove("hidden");
+    $("codeEditModal").setAttribute("aria-hidden", "false");
+    setTimeout(() => $("editName").focus(), 50);
+  }
+
+  function closeCodeEditor() {
+    $("codeEditModal")?.classList.add("hidden");
+    $("codeEditModal")?.setAttribute("aria-hidden", "true");
+  }
+
+  $("cancelCodeEditBtn")?.addEventListener("click", closeCodeEditor);
+  $("codeEditModal")?.addEventListener("click", e => {
+    if (e.target.id === "codeEditModal") closeCodeEditor();
+  });
+
+  $("saveCodeEditBtn")?.addEventListener("click", async () => {
+    const code = $("editCode").value.trim();
+    const name = $("editName").value.trim();
+    const days = Number($("editDays").value);
+    const maxDevices = Number($("editMaxDevices").value);
+    if (!code || !Number.isFinite(days) || days < 1 || days > 3650 || !Number.isFinite(maxDevices) || maxDevices < 1 || maxDevices > 20) {
+      showStatus($("editCodeStatus"), "تأكد من الاسم والمدة وعدد الأجهزة.", "error");
+      return;
+    }
+    try {
+      const data = await adminFetch("/api/admin/codes/update", {
+        method: "POST",
+        body: JSON.stringify({ code, name, days, maxDevices })
+      });
+      showStatus($("editCodeStatus"), "تم حفظ التعديلات بنجاح.", "success");
+      await loadCodes();
+      await loadAdminStats();
+      setTimeout(closeCodeEditor, 500);
+    } catch (error) {
+      showStatus($("editCodeStatus"), error.message || "تعذر حفظ التعديل.", "error");
+    }
+  });
+
+  document.addEventListener("click", event => {
+    const edit = event.target.closest?.(".edit-code");
+    if (edit) openCodeEditor(edit.dataset.code);
+  });
+
+  // Delegated keyboard handling is intentionally added in addition to the
+  // original handlers so Enter keeps working even after dynamic UI changes.
+  document.addEventListener("keydown", event => {
+    if (event.key !== "Enter") return;
+    const id = event.target?.id;
+    if (["coinSearchInput", "accessCode", "adminPassword", "adminSearch"].includes(id)) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      if (id === "coinSearchInput") searchCoin();
+      else if (id === "accessCode") $("loginBtn")?.click();
+      else if (id === "adminPassword") $("adminLoginBtn")?.click();
+    }
+  }, true);
+
+  // A single delegated refresh action prevents stale listeners from breaking
+  // after a render and guarantees cache-busting on every manual refresh.
+  document.addEventListener("click", event => {
+    const refresh = event.target.closest?.("#refreshBtn");
+    if (!refresh) return;
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    loadRecommendations(false);
+  }, true);
+</script>
+
+</body>
+</html>
