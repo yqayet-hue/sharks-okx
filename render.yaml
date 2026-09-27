@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: sharks-okx
+    runtime: node
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: APP_MODE
+        value: crypto
+      - key: OKX_BASE_URL
+        value: https://lively-tree-006b.y-qayet.workers.dev
+      - key: MAX_SYMBOLS
+        value: "20"
+      - key: SPOT_MAX_SYMBOLS
+        value: "20"
+      - key: SCAN_INTERVAL_MS
+        value: "120000"
+      - key: NODE_VERSION
+        value: "22"
